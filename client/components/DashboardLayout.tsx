@@ -1,0 +1,168 @@
+import { Link, useLocation } from "react-router-dom";
+import {
+  Brain,
+  LayoutDashboard,
+  Users,
+  MessageCircle,
+  MessageSquare,
+  Calendar,
+  Music,
+  Zap,
+  Settings,
+  LogOut,
+  Bell,
+  Search,
+  Crown,
+} from "lucide-react";
+import { Button } from "./ui/button";
+import { cn } from "@/lib/utils";
+
+interface DashboardLayoutProps {
+  children: React.ReactNode;
+}
+
+export function DashboardLayout({ children }: DashboardLayoutProps) {
+  const location = useLocation();
+
+  const navItems = [
+    { icon: LayoutDashboard, label: "Dashboard", href: "/dashboard" },
+    { icon: Users, label: "Study Groups", href: "/study-groups" },
+    { icon: MessageCircle, label: "My Chats", href: "/my-chats" },
+    { icon: MessageSquare, label: "Community", href: "/community" },
+    { icon: Calendar, label: "Planner", href: "/planner" },
+  ];
+
+  const quickActions = [
+    { icon: Zap, label: "Focus Mode", href: "/focus-mode" },
+    { icon: Music, label: "Study Music", href: "/study-music" },
+  ];
+
+  return (
+    <div className="min-h-screen bg-gray-50 flex">
+      {/* Sidebar */}
+      <aside className="w-64 bg-white border-r border-gray-200 h-screen overflow-y-auto">
+        <div className="p-6">
+          <Link to="/" className="flex items-center gap-2 mb-8">
+            <div className="w-10 h-10 bg-primary rounded-lg flex items-center justify-center">
+              <Brain className="w-6 h-6 text-white" />
+            </div>
+            <div>
+              <p className="font-semibold text-gray-900">Mnemora</p>
+              <p className="text-xs text-gray-500">AI Study Hub</p>
+            </div>
+          </Link>
+
+          {/* Navigation */}
+          <nav className="space-y-1">
+            {navItems.map((item) => {
+              const Icon = item.icon;
+              const isActive = location.pathname === item.href;
+              return (
+                <Link
+                  key={item.href}
+                  to={item.href}
+                  className={cn(
+                    "flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium transition",
+                    isActive
+                      ? "bg-primary/10 text-primary"
+                      : "text-gray-600 hover:bg-gray-50"
+                  )}
+                >
+                  <Icon className="w-5 h-5" />
+                  {item.label}
+                </Link>
+              );
+            })}
+          </nav>
+
+          {/* Quick Actions */}
+          <div className="mt-8 pt-6 border-t border-gray-200">
+            <p className="text-xs font-semibold text-gray-600 uppercase px-4 mb-3">
+              Quick Actions
+            </p>
+            <div className="space-y-1">
+              {quickActions.map((item) => {
+                const Icon = item.icon;
+                return (
+                  <Link
+                    key={item.href}
+                    to={item.href}
+                    className="flex items-center gap-3 px-4 py-3 rounded-lg text-sm text-gray-600 hover:bg-gray-50 transition"
+                  >
+                    <Icon className="w-5 h-5" />
+                    {item.label}
+                  </Link>
+                );
+              })}
+            </div>
+          </div>
+
+          {/* Pro Section */}
+          <div className="mt-8 pt-6 border-t border-gray-200">
+            <div className="bg-primary/5 rounded-lg p-4 mb-4">
+              <p className="text-xs text-gray-600 mb-2">Pro</p>
+              <p className="text-sm font-semibold text-gray-900 mb-3">
+                Upgrade to Pro
+              </p>
+              <p className="text-xs text-gray-600 mb-4">
+                Unlock advanced AI features
+              </p>
+              <Button
+                size="sm"
+                className="w-full bg-primary hover:bg-primary/90 text-white"
+              >
+                Upgrade Now
+              </Button>
+            </div>
+
+            {/* User Section */}
+            <div className="border-t border-gray-200 pt-4">
+              <div className="flex items-center gap-3 px-2 py-3">
+                <div className="w-10 h-10 bg-primary rounded-lg flex items-center justify-center text-white font-semibold">
+                  JD
+                </div>
+                <div className="flex-1">
+                  <p className="text-sm font-semibold text-gray-900">Jane Doe</p>
+                  <p className="text-xs text-gray-500">Free Plan</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </aside>
+
+      {/* Main Content */}
+      <main className="flex-1 flex flex-col">
+        {/* Top Header */}
+        <header className="bg-white border-b border-gray-200 h-16 flex items-center justify-between px-8">
+          <div className="flex-1 max-w-2xl">
+            <div className="relative">
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+              <input
+                type="text"
+                placeholder="Search..."
+                className="w-full pl-10 pr-4 py-2 bg-gray-50 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary/50"
+              />
+            </div>
+          </div>
+
+          <div className="flex items-center gap-4">
+            <button className="relative p-2 text-gray-600 hover:bg-gray-50 rounded-lg transition">
+              <Bell className="w-5 h-5" />
+              <span className="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full"></span>
+            </button>
+
+            <button className="p-2 text-gray-600 hover:bg-gray-50 rounded-lg transition">
+              <Settings className="w-5 h-5" />
+            </button>
+          </div>
+        </header>
+
+        {/* Page Content */}
+        <div className="flex-1 overflow-auto">
+          {children}
+        </div>
+      </main>
+    </div>
+  );
+}
