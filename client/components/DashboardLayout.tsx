@@ -13,9 +13,12 @@ import {
   Bell,
   Search,
   Crown,
+  Moon,
+  Sun,
 } from "lucide-react";
 import { Button } from "./ui/button";
 import { cn } from "@/lib/utils";
+import { useState, useEffect } from "react";
 
 interface DashboardLayoutProps {
   children: React.ReactNode;
@@ -23,6 +26,22 @@ interface DashboardLayoutProps {
 
 export function DashboardLayout({ children }: DashboardLayoutProps) {
   const location = useLocation();
+  const [isDark, setIsDark] = useState(() => {
+    // Check localStorage for saved preference
+    const saved = localStorage.getItem("darkMode");
+    if (saved !== null) return saved === "true";
+    // Check system preference
+    return window.matchMedia("(prefers-color-scheme: dark)").matches;
+  });
+
+  useEffect(() => {
+    localStorage.setItem("darkMode", String(isDark));
+    if (isDark) {
+      document.documentElement.classList.add("dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+    }
+  }, [isDark]);
 
   const navItems = [
     { icon: LayoutDashboard, label: "Dashboard", href: "/dashboard" },
@@ -38,17 +57,21 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
   ];
 
   return (
-    <div className="min-h-screen bg-gray-50 flex">
+    <div className="min-h-screen bg-gray-50 dark:bg-slate-950 flex">
       {/* Sidebar */}
-      <aside className="w-64 bg-white border-r border-gray-200 h-screen overflow-y-auto">
+      <aside className="w-64 bg-white dark:bg-slate-900 border-r border-gray-200 dark:border-slate-700 h-screen overflow-y-auto">
         <div className="p-6">
           <Link to="/" className="flex items-center gap-2 mb-8">
             <div className="w-10 h-10 bg-primary rounded-lg flex items-center justify-center">
               <Brain className="w-6 h-6 text-white" />
             </div>
             <div>
-              <p className="font-semibold text-gray-900">Mnemora</p>
-              <p className="text-xs text-gray-500">AI Study Hub</p>
+              <p className="font-semibold text-gray-900 dark:text-white">
+                Mnemora
+              </p>
+              <p className="text-xs text-gray-500 dark:text-gray-400">
+                AI Study Hub
+              </p>
             </div>
           </Link>
 
