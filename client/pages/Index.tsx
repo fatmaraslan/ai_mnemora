@@ -38,10 +38,15 @@ export default function Index() {
           </nav>
 
           <div className="flex items-center gap-3">
-            <button className="text-gray-600 hover:text-gray-900 font-medium">
+            <Link
+              to="/sign-in"
+              className="text-gray-600 hover:text-gray-900 font-medium"
+            >
               Sign In
-            </button>
-            <Button className="bg-primary hover:bg-primary/90">Get Started</Button>
+            </Link>
+            <Link to="/dashboard">
+              <Button className="bg-primary hover:bg-primary/90">Get Started</Button>
+            </Link>
           </div>
         </div>
       </header>
@@ -70,16 +75,20 @@ export default function Index() {
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button className="bg-primary hover:bg-primary/90 text-white text-base px-8 py-6 h-auto rounded-lg">
-              Start Studying Free <ArrowRight className="w-4 h-4 ml-2" />
-            </Button>
-            <Button
-              variant="outline"
-              className="text-base px-8 py-6 h-auto rounded-lg"
-            >
-              <Upload className="w-4 h-4 mr-2" />
-              Upload PDF
-            </Button>
+            <Link to="/dashboard">
+              <Button className="bg-primary hover:bg-primary/90 text-white text-base px-8 py-6 h-auto rounded-lg">
+                Start Studying Free <ArrowRight className="w-4 h-4 ml-2" />
+              </Button>
+            </Link>
+            <Link to="/dashboard">
+              <Button
+                variant="outline"
+                className="text-base px-8 py-6 h-auto rounded-lg"
+              >
+                <Upload className="w-4 h-4 mr-2" />
+                Upload PDF
+              </Button>
+            </Link>
           </div>
         </div>
       </section>
@@ -244,9 +253,11 @@ export default function Index() {
                 </li>
               </ul>
 
-              <Button className="bg-primary hover:bg-primary/90 mt-8">
-                Try it Now <ArrowRight className="w-4 h-4 ml-2" />
-              </Button>
+              <Link to="/dashboard">
+                <Button className="bg-primary hover:bg-primary/90 mt-8">
+                  Try it Now <ArrowRight className="w-4 h-4 ml-2" />
+                </Button>
+              </Link>
             </div>
 
             <div className="bg-white rounded-2xl p-8 shadow-lg border border-primary/10">
@@ -332,9 +343,11 @@ export default function Index() {
           <p className="text-lg text-white/90 mb-8">
             Join Mnemora today and start studying smarter with AI
           </p>
-          <Button className="bg-white text-primary hover:bg-gray-100 text-base px-8 py-6 h-auto">
-            Get Started Free <ArrowRight className="w-4 h-4 ml-2" />
-          </Button>
+          <Link to="/dashboard">
+            <Button className="bg-white text-primary hover:bg-gray-100 text-base px-8 py-6 h-auto">
+              Get Started Free <ArrowRight className="w-4 h-4 ml-2" />
+            </Button>
+          </Link>
         </div>
       </section>
 
