@@ -14,6 +14,7 @@ import DocumentViewer from "./pages/DocumentViewer";
 import StudyGroups from "./pages/StudyGroups";
 import StudyGroupChat from "./pages/StudyGroupChat";
 import MyChats from "./pages/MyChats";
+import ChatConversation from "./pages/ChatConversation";
 import Community from "./pages/Community";
 import Planner from "./pages/Planner";
 import Profile from "./pages/Profile";
@@ -39,6 +40,7 @@ const App = () => (
           <Route path="/study-groups" element={<StudyGroups />} />
           <Route path="/study-group/:id" element={<StudyGroupChat />} />
           <Route path="/my-chats" element={<MyChats />} />
+          <Route path="/chat/:id" element={<ChatConversation />} />
           <Route path="/community" element={<Community />} />
           <Route path="/planner" element={<Planner />} />
           <Route path="/profile" element={<Profile />} />

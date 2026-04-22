@@ -87,8 +87,8 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
                   className={cn(
                     "flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium transition",
                     isActive
-                      ? "bg-primary/10 text-primary"
-                      : "text-gray-600 hover:bg-gray-50"
+                      ? "bg-primary/10 text-primary dark:bg-primary/20"
+                      : "text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-slate-800"
                   )}
                 >
                   <Icon className="w-5 h-5" />
@@ -99,8 +99,8 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
           </nav>
 
           {/* Quick Actions */}
-          <div className="mt-8 pt-6 border-t border-gray-200">
-            <p className="text-xs font-semibold text-gray-600 uppercase px-4 mb-3">
+          <div className="mt-8 pt-6 border-t border-gray-200 dark:border-slate-700">
+            <p className="text-xs font-semibold text-gray-600 dark:text-gray-400 uppercase px-4 mb-3">
               Quick Actions
             </p>
             <div className="space-y-1">
@@ -110,7 +110,7 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
                   <Link
                     key={item.href}
                     to={item.href}
-                    className="flex items-center gap-3 px-4 py-3 rounded-lg text-sm text-gray-600 hover:bg-gray-50 transition"
+                    className="flex items-center gap-3 px-4 py-3 rounded-lg text-sm text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-slate-800 transition"
                   >
                     <Icon className="w-5 h-5" />
                     {item.label}
@@ -121,13 +121,13 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
           </div>
 
           {/* Pro Section */}
-          <div className="mt-8 pt-6 border-t border-gray-200">
-            <div className="bg-primary/5 rounded-lg p-4 mb-4">
-              <p className="text-xs text-gray-600 mb-2">Pro</p>
-              <p className="text-sm font-semibold text-gray-900 mb-3">
+          <div className="mt-8 pt-6 border-t border-gray-200 dark:border-slate-700">
+            <div className="bg-primary/5 dark:bg-primary/10 rounded-lg p-4 mb-4">
+              <p className="text-xs text-gray-600 dark:text-gray-400 mb-2">Pro</p>
+              <p className="text-sm font-semibold text-gray-900 dark:text-white mb-3">
                 Upgrade to Pro
               </p>
-              <p className="text-xs text-gray-600 mb-4">
+              <p className="text-xs text-gray-600 dark:text-gray-400 mb-4">
                 Unlock advanced AI features
               </p>
               <Button
@@ -139,16 +139,23 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
             </div>
 
             {/* User Section */}
-            <div className="border-t border-gray-200 pt-4">
-              <div className="flex items-center gap-3 px-2 py-3">
+            <div className="border-t border-gray-200 dark:border-slate-700 pt-4">
+              <Link
+                to="/profile"
+                className="flex items-center gap-3 px-2 py-3 hover:bg-gray-50 dark:hover:bg-slate-800 rounded-lg transition"
+              >
                 <div className="w-10 h-10 bg-primary rounded-lg flex items-center justify-center text-white font-semibold">
                   JD
                 </div>
                 <div className="flex-1">
-                  <p className="text-sm font-semibold text-gray-900">Jane Doe</p>
-                  <p className="text-xs text-gray-500">Free Plan</p>
+                  <p className="text-sm font-semibold text-gray-900 dark:text-white">
+                    Jane Doe
+                  </p>
+                  <p className="text-xs text-gray-500 dark:text-gray-400">
+                    Free Plan
+                  </p>
                 </div>
-              </div>
+              </Link>
             </div>
           </div>
         </div>
@@ -157,32 +164,43 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
       {/* Main Content */}
       <main className="flex-1 flex flex-col">
         {/* Top Header */}
-        <header className="bg-white border-b border-gray-200 h-16 flex items-center justify-between px-8">
+        <header className="bg-white dark:bg-slate-800 border-b border-gray-200 dark:border-slate-700 h-16 flex items-center justify-between px-8">
           <div className="flex-1 max-w-2xl">
             <div className="relative">
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
               <input
                 type="text"
                 placeholder="Search..."
-                className="w-full pl-10 pr-4 py-2 bg-gray-50 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary/50"
+                className="w-full pl-10 pr-4 py-2 bg-gray-50 dark:bg-slate-700 border border-gray-200 dark:border-slate-600 text-gray-900 dark:text-white rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary/50 placeholder-gray-500 dark:placeholder-gray-400"
               />
             </div>
           </div>
 
           <div className="flex items-center gap-4">
-            <button className="relative p-2 text-gray-600 hover:bg-gray-50 rounded-lg transition">
+            <button className="relative p-2 text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-slate-700 rounded-lg transition">
               <Bell className="w-5 h-5" />
               <span className="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full"></span>
             </button>
 
-            <button className="p-2 text-gray-600 hover:bg-gray-50 rounded-lg transition">
+            <button
+              onClick={() => setIsDark(!isDark)}
+              className="p-2 text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-slate-700 rounded-lg transition"
+            >
+              {isDark ? (
+                <Sun className="w-5 h-5" />
+              ) : (
+                <Moon className="w-5 h-5" />
+              )}
+            </button>
+
+            <button className="p-2 text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-slate-700 rounded-lg transition">
               <Settings className="w-5 h-5" />
             </button>
           </div>
         </header>
 
         {/* Page Content */}
-        <div className="flex-1 overflow-auto">
+        <div className="flex-1 overflow-auto bg-gray-50 dark:bg-slate-950">
           {children}
         </div>
       </main>
