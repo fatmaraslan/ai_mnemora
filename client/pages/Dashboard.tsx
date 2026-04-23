@@ -81,8 +81,8 @@ export default function Dashboard() {
           </div>
         </div>
 
-        {/* Active Study Rooms and AI Assistant */}
-        <div className="grid md:grid-cols-3 gap-8 mb-8">
+        {/* Study Materials and Schedule */}
+        <div className="grid md:grid-cols-3 gap-8 mb-8 items-start">
           {/* Active Study Rooms */}
           <div className="md:col-span-2 bg-white dark:bg-slate-800 rounded-xl p-6 border border-gray-200 dark:border-slate-700">
             <div className="flex items-center justify-between mb-6">
