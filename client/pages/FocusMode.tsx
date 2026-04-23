@@ -7,12 +7,37 @@ import {
   Clock,
   BarChart3,
 } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 export default function FocusMode() {
   const [isFocusActive, setIsFocusActive] = useState(false);
   const [focusTime, setFocusTime] = useState(25);
   const [elapsedTime, setElapsedTime] = useState(0);
+
+  // Timer countdown effect
+  useEffect(() => {
+    if (!isFocusActive) return;
+
+    const interval = setInterval(() => {
+      setElapsedTime((prev) => {
+        const totalSeconds = focusTime * 60;
+        if (prev >= totalSeconds) {
+          setIsFocusActive(false);
+          return 0;
+        }
+        return prev + 1;
+      });
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, [isFocusActive, focusTime]);
+
+  // Reset elapsed time when focus time changes
+  useEffect(() => {
+    if (!isFocusActive) {
+      setElapsedTime(0);
+    }
+  }, [focusTime, isFocusActive]);
 
   return (
     <DashboardLayout>
@@ -26,50 +51,79 @@ export default function FocusMode() {
         </p>
 
         {/* Main Focus Card */}
-        <div className="bg-gradient-to-br from-primary/10 to-secondary/10 dark:from-primary/20 dark:to-secondary/20 border border-primary/30 dark:border-primary/30 rounded-xl p-12 mb-8">
+        <div className={`border rounded-xl p-12 mb-8 transition ${
+          isFocusActive
+            ? "bg-gradient-to-br from-green-50 to-emerald-50 dark:from-green-950/20 dark:to-emerald-950/20 border-green-300 dark:border-green-700"
+            : "bg-gradient-to-br from-primary/10 to-secondary/10 dark:from-primary/20 dark:to-secondary/20 border border-primary/30 dark:border-primary/30"
+        }`}>
           <div className="text-center">
-            <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
-              {isFocusActive ? "Focus Session Active" : "Ready to Focus?"}
+            <h2 className={`text-2xl font-bold mb-4 ${
+              isFocusActive
+                ? "text-green-900 dark:text-green-100"
+                : "text-gray-900 dark:text-white"
+            }`}>
+              {isFocusActive ? "🎯 Focus Session Active" : "Ready to Focus?"}
             </h2>
 
             {/* Timer Circle */}
-            <div className="w-48 h-48 mx-auto mb-8 rounded-full bg-gradient-to-br from-primary to-secondary flex items-center justify-center shadow-lg">
+            <div className={`w-48 h-48 mx-auto mb-8 rounded-full flex items-center justify-center shadow-lg transition-all ${
+              isFocusActive
+                ? "bg-gradient-to-br from-primary to-secondary animate-pulse"
+                : "bg-gradient-to-br from-primary to-secondary"
+            }`}>
               <div className="text-center">
                 <p className="text-white/80 text-sm">Time Remaining</p>
-                <p className="text-5xl font-bold text-white">
+                <p className="text-5xl font-bold text-white font-mono">
                   {Math.floor((focusTime * 60 - elapsedTime) / 60)}:
                   {String((focusTime * 60 - elapsedTime) % 60).padStart(2, "0")}
                 </p>
+                {isFocusActive && (
+                  <p className="text-white text-xs mt-2">Session Active</p>
+                )}
               </div>
             </div>
 
             <div className="space-y-4">
-              <div>
-                <label className="block text-sm font-medium text-gray-900 dark:text-white mb-2">
-                  Focus Duration
-                </label>
-                <div className="flex items-center justify-center gap-4">
-                  <button
-                    onClick={() => setFocusTime(Math.max(5, focusTime - 5))}
-                    className="px-4 py-2 bg-gray-200 dark:bg-slate-700 rounded-lg hover:bg-gray-300 dark:hover:bg-slate-600"
-                  >
-                    -
-                  </button>
-                  <span className="text-2xl font-bold text-gray-900 dark:text-white w-20">
-                    {focusTime} min
-                  </span>
-                  <button
-                    onClick={() => setFocusTime(Math.min(120, focusTime + 5))}
-                    className="px-4 py-2 bg-gray-200 dark:bg-slate-700 rounded-lg hover:bg-gray-300 dark:hover:bg-slate-600"
-                  >
-                    +
-                  </button>
+              {!isFocusActive && (
+                <div>
+                  <label className="block text-sm font-medium text-gray-900 dark:text-white mb-2">
+                    Focus Duration
+                  </label>
+                  <div className="flex items-center justify-center gap-4">
+                    <button
+                      onClick={() => setFocusTime(Math.max(5, focusTime - 5))}
+                      className="px-4 py-2 bg-gray-200 dark:bg-slate-700 rounded-lg hover:bg-gray-300 dark:hover:bg-slate-600 transition"
+                    >
+                      -
+                    </button>
+                    <span className="text-2xl font-bold text-gray-900 dark:text-white w-20">
+                      {focusTime} min
+                    </span>
+                    <button
+                      onClick={() => setFocusTime(Math.min(120, focusTime + 5))}
+                      className="px-4 py-2 bg-gray-200 dark:bg-slate-700 rounded-lg hover:bg-gray-300 dark:hover:bg-slate-600 transition"
+                    >
+                      +
+                    </button>
+                  </div>
                 </div>
-              </div>
+              )}
 
               <Button
-                onClick={() => setIsFocusActive(!isFocusActive)}
-                className="w-full bg-primary hover:bg-primary/90 text-white text-lg py-6"
+                onClick={() => {
+                  if (isFocusActive) {
+                    setIsFocusActive(false);
+                    setElapsedTime(0);
+                  } else {
+                    setIsFocusActive(true);
+                    setElapsedTime(0);
+                  }
+                }}
+                className={`w-full text-white text-lg py-6 transition ${
+                  isFocusActive
+                    ? "bg-red-600 hover:bg-red-700"
+                    : "bg-primary hover:bg-primary/90"
+                }`}
               >
                 {isFocusActive ? "Stop Focus Session" : "Start Focus Session"}
               </Button>
