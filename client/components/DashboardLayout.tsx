@@ -18,7 +18,8 @@ import {
 } from "lucide-react";
 import { Button } from "./ui/button";
 import { cn } from "@/lib/utils";
-import { useState, useEffect } from "react";
+import { useState, useEffect, createContext, useContext } from "react";
+import { MusicPlayer } from "./MusicPlayer";
 
 interface DashboardLayoutProps {
   children: React.ReactNode;
@@ -33,6 +34,14 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
     // Check system preference
     return window.matchMedia("(prefers-color-scheme: dark)").matches;
   });
+
+  const [isMusicPlayerOpen, setIsMusicPlayerOpen] = useState(() => {
+    return location.pathname === "/study-music";
+  });
+
+  useEffect(() => {
+    setIsMusicPlayerOpen(location.pathname === "/study-music");
+  }, [location.pathname]);
 
   useEffect(() => {
     localStorage.setItem("darkMode", String(isDark));
@@ -57,7 +66,13 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
   ];
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-slate-950 flex">
+    <div className="min-h-screen bg-gray-50 dark:bg-slate-950 flex relative">
+      {/* Music Player */}
+      <MusicPlayer
+        isOpen={isMusicPlayerOpen}
+        onClose={() => setIsMusicPlayerOpen(false)}
+      />
+
       {/* Sidebar */}
       <aside className="w-64 bg-white dark:bg-slate-900 border-r border-gray-200 dark:border-slate-700 h-screen overflow-y-auto">
         <div className="p-6">
