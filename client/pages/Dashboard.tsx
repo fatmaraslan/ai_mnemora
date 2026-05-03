@@ -83,86 +83,166 @@ export default function Dashboard() {
 
         {/* Study Materials and Schedule */}
         <div className="grid md:grid-cols-3 gap-8 mb-8 items-start">
-          {/* Active Study Rooms */}
+          {/* Study Materials */}
           <div className="md:col-span-2 bg-white dark:bg-slate-800 rounded-xl p-6 border border-gray-200 dark:border-slate-700">
-            <div className="flex items-center justify-between mb-6">
-              <h2 className="text-xl font-bold text-gray-900 dark:text-white">
-                Active Study Rooms
-              </h2>
-              <p className="text-xs text-gray-500 dark:text-gray-400">
-                Continue where you left off
-              </p>
-            </div>
+            <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-6">
+              Progress
+            </h2>
 
-            <div className="space-y-4">
-              {/* Study Room Card */}
-              <Link to="/document/1">
-                <div className="border border-gray-200 dark:border-slate-700 rounded-lg p-4 hover:border-primary/50 transition dark:bg-slate-800">
-                  <div className="flex items-start justify-between">
-                    <div className="flex items-start gap-4 flex-1">
-                      <div className="w-10 h-10 bg-blue-100 dark:bg-blue-900 rounded-lg flex items-center justify-center flex-shrink-0">
-                        <span className="text-lg">📚</span>
-                      </div>
-                      <div>
-                        <p className="font-semibold text-gray-900 dark:text-white">
-                          Introduction to Quantum Physics
-                        </p>
-                        <p className="text-xs text-gray-500 dark:text-gray-400">
-                          Physics • 45 pages • 2 hours ago
-                        </p>
-                      </div>
+            <div className="space-y-6">
+              {/* Material 1 */}
+              <div>
+                <div className="flex items-center justify-between mb-2">
+                  <div className="flex items-center gap-3">
+                    <div className="w-8 h-8 bg-emerald-100 dark:bg-emerald-900 rounded flex items-center justify-center">
+                      <span className="text-lg">📖</span>
                     </div>
-                    <button className="px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary/90 transition flex items-center gap-2">
-                      Continue <ArrowRight className="w-4 h-4" />
-                    </button>
-                  </div>
-                  <div className="mt-3">
-                    <div className="bg-gray-200 dark:bg-slate-600 h-2 rounded-full overflow-hidden">
-                      <div className="bg-primary h-full" style={{ width: "65%" }}></div>
+                    <div>
+                      <p className="font-semibold text-gray-900 dark:text-white text-sm">
+                        Organic Chemistry Reactions
+                      </p>
+                      <p className="text-xs text-gray-500 dark:text-gray-400">
+                        Chemistry • 68 pages • 1 day ago
+                      </p>
                     </div>
-                    <p className="text-xs text-gray-500 dark:text-gray-400 mt-2">
-                      65% complete
-                    </p>
                   </div>
+                  <span className="text-sm font-semibold text-primary">30%</span>
                 </div>
-              </Link>
+                <div className="bg-gray-200 dark:bg-slate-600 h-2 rounded-full overflow-hidden">
+                  <div className="bg-primary h-full" style={{ width: "30%" }}></div>
+                </div>
+              </div>
+
+              {/* Material 2 */}
+              <div>
+                <div className="flex items-center justify-between mb-2">
+                  <div className="flex items-center gap-3">
+                    <div className="w-8 h-8 bg-blue-100 dark:bg-blue-900 rounded flex items-center justify-center">
+                      <span className="text-lg">🔬</span>
+                    </div>
+                    <div>
+                      <p className="font-semibold text-gray-900 dark:text-white text-sm">
+                        Quantum Physics Chapter 5
+                      </p>
+                      <p className="text-xs text-gray-500 dark:text-gray-400">
+                        Physics • 45 pages • 2 days ago
+                      </p>
+                    </div>
+                  </div>
+                  <span className="text-sm font-semibold text-primary">65%</span>
+                </div>
+                <div className="bg-gray-200 dark:bg-slate-600 h-2 rounded-full overflow-hidden">
+                  <div className="bg-primary h-full" style={{ width: "65%" }}></div>
+                </div>
+              </div>
+
+              {/* Upload New */}
+              <div className="border-2 border-dashed border-gray-300 dark:border-slate-600 rounded-lg p-6 text-center hover:border-primary/50 transition">
+                <div className="flex justify-center mb-2">
+                  <Upload className="w-6 h-6 text-gray-400" />
+                </div>
+                <p className="font-semibold text-gray-900 dark:text-white mb-1">
+                  Upload New Study Material
+                </p>
+                <p className="text-xs text-gray-600 dark:text-gray-400 mb-3">
+                  Drop your PDF here or click to browse files
+                </p>
+                <Button className="bg-primary hover:bg-primary/90 text-white w-full">
+                  Choose File
+                </Button>
+              </div>
             </div>
           </div>
 
-          {/* AI Assistant */}
-          <div className="bg-gradient-to-br from-primary/10 to-secondary/10 dark:from-primary/20 dark:to-secondary/20 rounded-xl p-6 border border-primary/20 dark:border-primary/30">
-            <div className="flex items-center gap-3 mb-4">
-              <div className="w-10 h-10 bg-primary rounded-full flex items-center justify-center">
-                <Brain className="w-6 h-6 text-white" />
+          {/* Schedule Sidebar */}
+          <div className="space-y-6">
+            {/* Upcoming Schedule */}
+            <div className="bg-white dark:bg-slate-800 rounded-xl p-6 border border-gray-200 dark:border-slate-700">
+              <h3 className="font-semibold text-gray-900 dark:text-white mb-4">
+                Today's Schedule
+              </h3>
+              <div className="space-y-3">
+                {/* Event 1 */}
+                <div className="flex gap-3">
+                  <div className="text-xs font-semibold text-gray-600 dark:text-gray-400 whitespace-nowrap pt-1">
+                    2:00 PM
+                  </div>
+                  <div className="flex-1">
+                    <p className="text-sm font-semibold text-gray-900 dark:text-white">
+                      ML Assignment
+                    </p>
+                    <p className="text-xs text-gray-500 dark:text-gray-400">
+                      3:00 PM
+                    </p>
+                  </div>
+                </div>
+
+                {/* Event 2 */}
+                <div className="flex gap-3">
+                  <div className="text-xs font-semibold text-gray-600 dark:text-gray-400 whitespace-nowrap pt-1">
+                    3:00 PM
+                  </div>
+                  <div className="flex-1">
+                    <p className="text-sm font-semibold text-gray-900 dark:text-white">
+                      Study Group
+                    </p>
+                    <p className="text-xs text-gray-500 dark:text-gray-400">
+                      6:00 PM - 7:30 PM
+                    </p>
+                  </div>
+                </div>
               </div>
-              <div>
-                <p className="font-semibold text-gray-900 dark:text-white">
-                  AI Assistant
-                </p>
-                <p className="text-xs text-gray-600 dark:text-gray-400">
-                  Always ready to help
-                </p>
-              </div>
+              <button className="w-full mt-4 text-sm text-primary font-semibold hover:underline">
+                View Full Schedule
+              </button>
             </div>
 
-            <div className="space-y-3">
-              <div className="bg-white/50 dark:bg-slate-700/50 backdrop-blur rounded-lg p-3">
-                <p className="text-gray-600 dark:text-gray-300 text-sm">
-                  Hi! I can help you with summaries, questions, or study tips.
-                </p>
+            {/* Recent Activity */}
+            <div className="bg-white dark:bg-slate-800 rounded-xl p-6 border border-gray-200 dark:border-slate-700">
+              <div className="flex items-center justify-between mb-4">
+                <h3 className="font-semibold text-gray-900 dark:text-white">
+                  Recent Activity
+                </h3>
+                <button className="text-xs text-primary font-semibold hover:underline">
+                  View All
+                </button>
               </div>
-              <div className="bg-white dark:bg-slate-700 rounded-lg p-3">
-                <p className="text-gray-900 dark:text-gray-100 text-sm">
-                  Ask me anything...
-                </p>
+              <div className="space-y-3">
+                <div className="flex gap-3">
+                  <div className="w-2 h-2 bg-blue-500 rounded-full mt-1.5 flex-shrink-0"></div>
+                  <div>
+                    <p className="text-sm text-gray-900 dark:text-white">
+                      Generated summary for Chapter 5
+                    </p>
+                    <p className="text-xs text-gray-500 dark:text-gray-400">
+                      Physics • 1 hour ago
+                    </p>
+                  </div>
+                </div>
+                <div className="flex gap-3">
+                  <div className="w-2 h-2 bg-pink-500 rounded-full mt-1.5 flex-shrink-0"></div>
+                  <div>
+                    <p className="text-sm text-gray-900 dark:text-white">
+                      Asked 3 questions
+                    </p>
+                    <p className="text-xs text-gray-500 dark:text-gray-400">
+                      Organic Chemistry • 2 hours ago
+                    </p>
+                  </div>
+                </div>
+                <div className="flex gap-3">
+                  <div className="w-2 h-2 bg-green-500 rounded-full mt-1.5 flex-shrink-0"></div>
+                  <div>
+                    <p className="text-sm text-gray-900 dark:text-white">
+                      Completed study session
+                    </p>
+                    <p className="text-xs text-gray-500 dark:text-gray-400">
+                      25 minutes • Yesterday
+                    </p>
+                  </div>
+                </div>
               </div>
             </div>
-
-            <input
-              type="text"
-              placeholder="Ask me anything..."
-              className="w-full mt-4 px-4 py-2 bg-white dark:bg-slate-700 border border-gray-200 dark:border-slate-600 text-gray-900 dark:text-white rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary/50 placeholder-gray-500 dark:placeholder-gray-400"
-            />
           </div>
         </div>
 

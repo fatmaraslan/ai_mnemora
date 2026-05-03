@@ -1,4 +1,4 @@
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import {
   Brain,
   LayoutDashboard,
@@ -27,6 +27,7 @@ interface DashboardLayoutProps {
 
 export function DashboardLayout({ children }: DashboardLayoutProps) {
   const location = useLocation();
+  const navigate = useNavigate();
   const [isDark, setIsDark] = useState(() => {
     // Check localStorage for saved preference
     const saved = localStorage.getItem("darkMode");
@@ -154,7 +155,7 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
             </div>
 
             {/* User Section */}
-            <div className="border-t border-gray-200 dark:border-slate-700 pt-4">
+            <div className="border-t border-gray-200 dark:border-slate-700 pt-4 space-y-2">
               <Link
                 to="/profile"
                 className="flex items-center gap-3 px-2 py-3 hover:bg-gray-50 dark:hover:bg-slate-800 rounded-lg transition"
@@ -171,6 +172,13 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
                   </p>
                 </div>
               </Link>
+              <button
+                onClick={() => navigate("/sign-in")}
+                className="flex items-center gap-3 px-2 py-3 text-gray-600 dark:text-gray-400 hover:text-red-600 dark:hover:text-red-400 hover:bg-gray-50 dark:hover:bg-slate-800 rounded-lg transition w-full"
+              >
+                <LogOut className="w-5 h-5" />
+                <span className="text-sm font-medium">Log Out</span>
+              </button>
             </div>
           </div>
         </div>

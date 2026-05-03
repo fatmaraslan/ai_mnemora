@@ -108,21 +108,61 @@ export default function StudyGroups() {
           </div>
           <div className="grid md:grid-cols-3 gap-4">
             {[
-              { id: "4", icon: "🟣", name: "Python Beginners", members: 234 },
-              { id: "5", icon: "🔵", name: "Data Science Hub", members: 456 },
-              { id: "6", icon: "🟠", name: "Web Dev Wizards", members: 789 },
+              {
+                id: "4",
+                icon: "🟣",
+                name: "Computer Science Hub",
+                description: "Discuss algorithms, data structures and programming",
+                subject: "Computer Science",
+                members: 156,
+                active: "15 online",
+              },
+              {
+                id: "5",
+                icon: "🟢",
+                name: "Biology Study Circle",
+                description: "Call biology, genetics, and molecular biology",
+                subject: "Biology",
+                members: 89,
+                active: "9 online",
+              },
+              {
+                id: "6",
+                icon: "🟠",
+                name: "Math Problem Solvers",
+                description: "Share math problems and solutions together",
+                subject: "Mathematics",
+                members: 203,
+                active: "21 online",
+              },
             ].map((group) => (
               <Link key={group.id} to={`/study-group/${group.id}`}>
                 <div className="bg-white dark:bg-slate-800 border border-gray-200 dark:border-slate-700 rounded-lg p-4 hover:border-primary/50 transition">
-                  <div className="flex items-center justify-center w-12 h-12 bg-gray-100 dark:bg-slate-700 rounded-lg text-xl mb-3">
-                    {group.icon}
+                  <div className="flex items-start justify-between mb-3">
+                    <div className="flex items-center justify-center w-12 h-12 bg-gray-100 dark:bg-slate-700 rounded-lg text-xl">
+                      {group.icon}
+                    </div>
+                    <span className="text-xs font-medium text-gray-600 dark:text-gray-400 bg-gray-100 dark:bg-slate-700 px-2 py-1 rounded">
+                      {group.subject}
+                    </span>
                   </div>
                   <p className="font-semibold text-gray-900 dark:text-white mb-1">
                     {group.name}
                   </p>
-                  <p className="text-xs text-gray-500 dark:text-gray-400 mb-4">
-                    {group.members} members
+                  <p className="text-xs text-gray-500 dark:text-gray-400 mb-3 line-clamp-2">
+                    {group.description}
                   </p>
+                  <div className="flex items-center justify-between mb-4 py-2 border-t border-gray-200 dark:border-slate-700">
+                    <div className="flex items-center gap-2">
+                      <Users className="w-4 h-4 text-gray-400" />
+                      <span className="text-sm text-gray-600 dark:text-gray-400">
+                        {group.members}
+                      </span>
+                    </div>
+                    <span className="text-xs text-green-600 dark:text-green-400 font-medium">
+                      {group.active}
+                    </span>
+                  </div>
                   <Button
                     variant="outline"
                     className="w-full"
@@ -133,6 +173,31 @@ export default function StudyGroups() {
                 </div>
               </Link>
             ))}
+          </div>
+
+          {/* Groups Stats */}
+          <div className="grid md:grid-cols-3 gap-4 mt-8">
+            <div className="bg-white dark:bg-slate-800 rounded-lg p-4 border border-gray-200 dark:border-slate-700 text-center">
+              <div className="flex items-center justify-center gap-2 mb-2">
+                <Users className="w-5 h-5 text-primary" />
+                <span className="text-sm text-gray-600 dark:text-gray-400">Total Groups</span>
+              </div>
+              <p className="text-2xl font-bold text-gray-900 dark:text-white">3</p>
+            </div>
+            <div className="bg-white dark:bg-slate-800 rounded-lg p-4 border border-gray-200 dark:border-slate-700 text-center">
+              <div className="flex items-center justify-center gap-2 mb-2">
+                <Users className="w-5 h-5 text-secondary" />
+                <span className="text-sm text-gray-600 dark:text-gray-400">Unread Messages</span>
+              </div>
+              <p className="text-2xl font-bold text-gray-900 dark:text-white">3</p>
+            </div>
+            <div className="bg-white dark:bg-slate-800 rounded-lg p-4 border border-gray-200 dark:border-slate-700 text-center">
+              <div className="flex items-center justify-center gap-2 mb-2">
+                <span className="text-lg">📈</span>
+                <span className="text-sm text-gray-600 dark:text-gray-400">Most Active</span>
+              </div>
+              <p className="text-lg font-bold text-gray-900 dark:text-white">ML Study Group</p>
+            </div>
           </div>
         </div>
       </div>
