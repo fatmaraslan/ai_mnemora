@@ -9,25 +9,36 @@ import {
   MessageCircle,
   Zap,
   Clock,
+  X,
 } from "lucide-react";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function Profile() {
+  const navigate = useNavigate();
+  const [isEditOpen, setIsEditOpen] = useState(false);
+  const [editForm, setEditForm] = useState({
+    name: "Jane Doe",
+    email: "jane.doe@university.edu",
+    bio: "",
+    interests: ["Machine Learning", "Quantum Physics", "Chemistry"],
+  });
   return (
     <DashboardLayout>
       <div className="p-8">
-        <h1 className="text-3xl font-bold text-gray-900 mb-8">My Profile</h1>
+        <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-8">My Profile</h1>
 
         <div className="grid lg:grid-cols-3 gap-8">
           {/* Profile Info */}
-          <div className="lg:col-span-2 bg-white rounded-xl p-8 border border-gray-200">
+          <div className="lg:col-span-2 bg-white dark:bg-slate-800 rounded-xl p-8 border border-gray-200 dark:border-slate-700">
             <div className="flex items-start justify-between mb-6">
               <div className="flex items-center gap-6">
                 <div className="w-24 h-24 bg-primary rounded-xl flex items-center justify-center text-white font-bold text-3xl">
                   JD
                 </div>
                 <div>
-                  <h2 className="text-2xl font-bold text-gray-900">Jane Doe</h2>
-                  <p className="text-gray-600">jane.doe@university.edu</p>
+                  <h2 className="text-2xl font-bold text-gray-900 dark:text-white">Jane Doe</h2>
+                  <p className="text-gray-600 dark:text-gray-400">jane.doe@university.edu</p>
                   <div className="flex gap-2 mt-3">
                     <span className="px-3 py-1 bg-primary/10 text-primary text-xs font-medium rounded-full">
                       Machine Learning
@@ -41,7 +52,10 @@ export default function Profile() {
                   </div>
                 </div>
               </div>
-              <Button variant="outline">
+              <Button
+                variant="outline"
+                onClick={() => setIsEditOpen(true)}
+              >
                 <Edit className="w-4 h-4 mr-2" />
                 Edit Profile
               </Button>
@@ -49,9 +63,9 @@ export default function Profile() {
 
             {/* Student ID */}
             <div className="mb-6">
-              <label className="text-sm text-gray-600 block mb-2">Student ID</label>
+              <label className="text-sm text-gray-600 dark:text-gray-400 block mb-2">Student ID</label>
               <div className="flex items-center gap-2">
-                <p className="text-lg font-semibold text-gray-900">STU-2024-30789</p>
+                <p className="text-lg font-semibold text-gray-900 dark:text-white">STU-2024-30789</p>
                 <button className="p-2 hover:bg-gray-100 rounded-lg transition">
                   <Copy className="w-4 h-4 text-gray-600" />
                 </button>
@@ -59,24 +73,24 @@ export default function Profile() {
             </div>
 
             {/* Stats */}
-            <div className="grid grid-cols-3 gap-4 border-t border-gray-200 pt-6">
+            <div className="grid grid-cols-3 gap-4 border-t border-gray-200 dark:border-slate-700 pt-6">
               <div>
-                <p className="text-gray-600 text-sm mb-1">Hours Studied</p>
-                <p className="text-2xl font-bold text-gray-900">245.5</p>
+                <p className="text-gray-600 dark:text-gray-400 text-sm mb-1">Hours Studied</p>
+                <p className="text-2xl font-bold text-gray-900 dark:text-white">245.5</p>
               </div>
               <div>
-                <p className="text-gray-600 text-sm mb-1">Contributions</p>
-                <p className="text-2xl font-bold text-gray-900">89</p>
+                <p className="text-gray-600 dark:text-gray-400 text-sm mb-1">Contributions</p>
+                <p className="text-2xl font-bold text-gray-900 dark:text-white">89</p>
               </div>
               <div>
-                <p className="text-gray-600 text-sm mb-1">Study Streak</p>
-                <p className="text-2xl font-bold text-gray-900">7 🔥</p>
+                <p className="text-gray-600 dark:text-gray-400 text-sm mb-1">Study Streak</p>
+                <p className="text-2xl font-bold text-gray-900 dark:text-white">7 🔥</p>
               </div>
             </div>
 
             {/* Member Info */}
-            <div className="mt-6 p-4 bg-gray-50 rounded-lg border border-gray-200">
-              <p className="text-gray-600 text-sm">Member since January 2024</p>
+            <div className="mt-6 p-4 bg-gray-50 dark:bg-slate-700/50 rounded-lg border border-gray-200 dark:border-slate-700">
+              <p className="text-gray-600 dark:text-gray-400 text-sm">Member since January 2024</p>
             </div>
 
             {/* Quick Actions */}
@@ -145,6 +159,86 @@ export default function Profile() {
             </div>
           </div>
         </div>
+
+        {/* Edit Profile Modal */}
+        {isEditOpen && (
+          <div className="fixed inset-0 bg-black/50 dark:bg-black/70 z-50 flex items-center justify-center p-4">
+            <div className="bg-white dark:bg-slate-800 rounded-xl max-w-md w-full p-6 border border-gray-200 dark:border-slate-700">
+              <div className="flex items-center justify-between mb-6">
+                <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
+                  Edit Profile
+                </h2>
+                <button
+                  onClick={() => setIsEditOpen(false)}
+                  className="p-2 hover:bg-gray-100 dark:hover:bg-slate-700 rounded-lg transition"
+                >
+                  <X className="w-5 h-5 text-gray-600 dark:text-gray-400" />
+                </button>
+              </div>
+
+              <div className="space-y-4 mb-6">
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                    Full Name
+                  </label>
+                  <input
+                    type="text"
+                    value={editForm.name}
+                    onChange={(e) =>
+                      setEditForm({ ...editForm, name: e.target.value })
+                    }
+                    className="w-full px-4 py-2 bg-gray-50 dark:bg-slate-700 border border-gray-200 dark:border-slate-600 text-gray-900 dark:text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/50"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                    Email
+                  </label>
+                  <input
+                    type="email"
+                    value={editForm.email}
+                    onChange={(e) =>
+                      setEditForm({ ...editForm, email: e.target.value })
+                    }
+                    className="w-full px-4 py-2 bg-gray-50 dark:bg-slate-700 border border-gray-200 dark:border-slate-600 text-gray-900 dark:text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/50"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                    Bio (Optional)
+                  </label>
+                  <textarea
+                    value={editForm.bio}
+                    onChange={(e) =>
+                      setEditForm({ ...editForm, bio: e.target.value })
+                    }
+                    placeholder="Tell us about yourself..."
+                    rows={3}
+                    className="w-full px-4 py-2 bg-gray-50 dark:bg-slate-700 border border-gray-200 dark:border-slate-600 text-gray-900 dark:text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/50 placeholder-gray-500 dark:placeholder-gray-400"
+                  />
+                </div>
+              </div>
+
+              <div className="flex gap-3">
+                <Button
+                  onClick={() => setIsEditOpen(false)}
+                  className="flex-1 bg-primary hover:bg-primary/90 text-white"
+                >
+                  Save Changes
+                </Button>
+                <Button
+                  variant="outline"
+                  onClick={() => setIsEditOpen(false)}
+                  className="flex-1"
+                >
+                  Cancel
+                </Button>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     </DashboardLayout>
   );
