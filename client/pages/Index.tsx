@@ -373,9 +373,9 @@ export default function Index() {
                   </a>
                 </li>
                 <li>
-                  <a href="#" className="hover:text-white">
+                  <Link to="/upgrade" className="hover:text-white">
                     Pricing
-                  </a>
+                  </Link>
                 </li>
                 <li>
                   <a href="#" className="hover:text-white">

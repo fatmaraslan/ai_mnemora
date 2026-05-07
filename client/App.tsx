@@ -18,6 +18,9 @@ import Profile from "./pages/Profile";
 import Notifications from "./pages/Notifications";
 import FocusMode from "./pages/FocusMode";
 import StudyMusic from "./pages/StudyMusic";
+import Settings from "./pages/Settings";
+import Upgrade from "./pages/Upgrade";
+import Payment from "./pages/Payment";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -45,6 +48,9 @@ export default function App() {
             <Route path="/notifications" element={<Notifications />} />
             <Route path="/focus-mode" element={<FocusMode />} />
             <Route path="/study-music" element={<StudyMusic />} />
+            <Route path="/settings" element={<Settings />} />
+            <Route path="/upgrade" element={<Upgrade />} />
+            <Route path="/payment" element={<Payment />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>

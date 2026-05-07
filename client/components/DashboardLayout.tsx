@@ -148,7 +148,8 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
               </p>
               <Button
                 size="sm"
-                className="w-full bg-primary hover:bg-primary/90 text-white"
+                className="w-full bg-primary hover:bg-primary/90 text-white cursor-pointer"
+                onClick={() => navigate("/upgrade")}
               >
                 Upgrade Now
               </Button>
@@ -219,7 +220,10 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
               )}
             </button>
 
-            <button className="p-2 text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-slate-700 rounded-lg transition">
+            <button
+              onClick={() => navigate("/settings")}
+              className="p-2 text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-slate-700 rounded-lg transition"
+            >
               <Settings className="w-5 h-5" />
             </button>
           </div>
