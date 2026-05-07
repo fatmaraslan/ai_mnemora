@@ -8,6 +8,7 @@ import {
   Zap,
   ArrowRight,
   Upload,
+  Star,
 } from "lucide-react";
 import { Link } from "react-router-dom";
 
@@ -76,14 +77,14 @@ export default function Index() {
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link to="/dashboard">
-              <Button className="bg-primary hover:bg-primary/90 text-white text-base px-8 py-6 h-auto rounded-lg">
+              <Button className="bg-primary hover:bg-primary/90 text-white px-6 py-2 rounded-lg">
                 Start Studying Free <ArrowRight className="w-4 h-4 ml-2" />
               </Button>
             </Link>
             <Link to="/dashboard">
               <Button
                 variant="outline"
-                className="text-base px-8 py-6 h-auto rounded-lg"
+                className="px-6 py-2 rounded-lg"
               >
                 <Upload className="w-4 h-4 mr-2" />
                 Upload PDF
@@ -302,6 +303,11 @@ export default function Index() {
 
           <div className="grid md:grid-cols-3 gap-8">
             <div className="p-8 bg-gray-50 rounded-xl">
+              <div className="flex gap-1 mb-3">
+                {[...Array(5)].map((_, i) => (
+                  <Star key={i} className="w-4 h-4 fill-yellow-400 text-yellow-400" />
+                ))}
+              </div>
               <p className="text-gray-700 mb-6 italic">
                 "Mnemora saved me hours of study time. The summaries are incredible."
               </p>
@@ -312,6 +318,11 @@ export default function Index() {
             </div>
 
             <div className="p-8 bg-gray-50 rounded-xl">
+              <div className="flex gap-1 mb-3">
+                {[...Array(5)].map((_, i) => (
+                  <Star key={i} className="w-4 h-4 fill-yellow-400 text-yellow-400" />
+                ))}
+              </div>
               <p className="text-gray-700 mb-6 italic">
                 "The feature is incredibly accurate and helpful."
               </p>
@@ -322,6 +333,11 @@ export default function Index() {
             </div>
 
             <div className="p-8 bg-gray-50 rounded-xl">
+              <div className="flex gap-1 mb-3">
+                {[...Array(5)].map((_, i) => (
+                  <Star key={i} className="w-4 h-4 fill-yellow-400 text-yellow-400" />
+                ))}
+              </div>
               <p className="text-gray-700 mb-6 italic">
                 "It's like having a personal tutor 24/7."
               </p>
