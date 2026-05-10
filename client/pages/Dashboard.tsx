@@ -91,50 +91,54 @@ export default function Dashboard() {
 
             <div className="space-y-6">
               {/* Material 1 */}
-              <div>
-                <div className="flex items-center justify-between mb-2">
-                  <div className="flex items-center gap-3">
-                    <div className="w-8 h-8 bg-emerald-100 dark:bg-emerald-900 rounded flex items-center justify-center">
-                      <span className="text-lg">📖</span>
+              <Link to="/document/2">
+                <div className="p-4 bg-gray-50 dark:bg-slate-700/50 rounded-lg hover:border-primary/50 hover:bg-gray-100 dark:hover:bg-slate-700 transition cursor-pointer border border-transparent">
+                  <div className="flex items-center justify-between mb-2">
+                    <div className="flex items-center gap-3">
+                      <div className="w-8 h-8 bg-emerald-100 dark:bg-emerald-900 rounded flex items-center justify-center">
+                        <span className="text-lg">📖</span>
+                      </div>
+                      <div>
+                        <p className="font-semibold text-gray-900 dark:text-white text-sm">
+                          Organic Chemistry Reactions
+                        </p>
+                        <p className="text-xs text-gray-500 dark:text-gray-400">
+                          Chemistry • 68 pages • 1 day ago
+                        </p>
+                      </div>
                     </div>
-                    <div>
-                      <p className="font-semibold text-gray-900 dark:text-white text-sm">
-                        Organic Chemistry Reactions
-                      </p>
-                      <p className="text-xs text-gray-500 dark:text-gray-400">
-                        Chemistry • 68 pages • 1 day ago
-                      </p>
-                    </div>
+                    <span className="text-sm font-semibold text-primary">30%</span>
                   </div>
-                  <span className="text-sm font-semibold text-primary">30%</span>
+                  <div className="bg-gray-200 dark:bg-slate-600 h-2 rounded-full overflow-hidden">
+                    <div className="bg-primary h-full" style={{ width: "30%" }}></div>
+                  </div>
                 </div>
-                <div className="bg-gray-200 dark:bg-slate-600 h-2 rounded-full overflow-hidden">
-                  <div className="bg-primary h-full" style={{ width: "30%" }}></div>
-                </div>
-              </div>
+              </Link>
 
               {/* Material 2 */}
-              <div>
-                <div className="flex items-center justify-between mb-2">
-                  <div className="flex items-center gap-3">
-                    <div className="w-8 h-8 bg-blue-100 dark:bg-blue-900 rounded flex items-center justify-center">
-                      <span className="text-lg">🔬</span>
+              <Link to="/document/1">
+                <div className="p-4 bg-gray-50 dark:bg-slate-700/50 rounded-lg hover:border-primary/50 hover:bg-gray-100 dark:hover:bg-slate-700 transition cursor-pointer border border-transparent">
+                  <div className="flex items-center justify-between mb-2">
+                    <div className="flex items-center gap-3">
+                      <div className="w-8 h-8 bg-blue-100 dark:bg-blue-900 rounded flex items-center justify-center">
+                        <span className="text-lg">🔬</span>
+                      </div>
+                      <div>
+                        <p className="font-semibold text-gray-900 dark:text-white text-sm">
+                          Quantum Physics Chapter 5
+                        </p>
+                        <p className="text-xs text-gray-500 dark:text-gray-400">
+                          Physics • 45 pages • 2 days ago
+                        </p>
+                      </div>
                     </div>
-                    <div>
-                      <p className="font-semibold text-gray-900 dark:text-white text-sm">
-                        Quantum Physics Chapter 5
-                      </p>
-                      <p className="text-xs text-gray-500 dark:text-gray-400">
-                        Physics • 45 pages • 2 days ago
-                      </p>
-                    </div>
+                    <span className="text-sm font-semibold text-primary">65%</span>
                   </div>
-                  <span className="text-sm font-semibold text-primary">65%</span>
+                  <div className="bg-gray-200 dark:bg-slate-600 h-2 rounded-full overflow-hidden">
+                    <div className="bg-primary h-full" style={{ width: "65%" }}></div>
+                  </div>
                 </div>
-                <div className="bg-gray-200 dark:bg-slate-600 h-2 rounded-full overflow-hidden">
-                  <div className="bg-primary h-full" style={{ width: "65%" }}></div>
-                </div>
-              </div>
+              </Link>
 
               {/* Upload New */}
               <div className="border-2 border-dashed border-gray-300 dark:border-slate-600 rounded-lg p-6 text-center hover:border-primary/50 transition">
