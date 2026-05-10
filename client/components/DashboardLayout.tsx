@@ -15,6 +15,8 @@ import {
   Crown,
   Moon,
   Sun,
+  Lightbulb,
+  BookOpen,
 } from "lucide-react";
 import { Button } from "./ui/button";
 import { cn } from "@/lib/utils";
@@ -64,6 +66,8 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
   const quickActions = [
     { icon: Zap, label: "Focus Mode", href: "/focus-mode" },
     { icon: Music, label: "Study Music", href: "/study-music" },
+    { icon: Lightbulb, label: "Quiz Generator", href: "/quiz-generator" },
+    { icon: BookOpen, label: "Flashcards", href: "/flashcards-generator" },
   ];
 
   return (
