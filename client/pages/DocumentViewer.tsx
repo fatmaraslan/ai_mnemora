@@ -15,9 +15,11 @@ import {
   BookOpen,
   FileText,
   Send,
+  Volume2,
+  VolumeX,
 } from "lucide-react";
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 export default function DocumentViewer() {
   const [activeTab, setActiveTab] = useState<"chat" | "notes" | "summary">(
@@ -26,8 +28,36 @@ export default function DocumentViewer() {
   const [zoom, setZoom] = useState(100);
   const [currentPage, setCurrentPage] = useState(1);
   const [chatMessage, setChatMessage] = useState("");
+  const [isReading, setIsReading] = useState(false);
+  const [isSpeaking, setIsSpeaking] = useState(false);
 
   const totalPages = 45;
+
+  const documentText = `Introduction to Quantum Physics. Quantum physics, also known as quantum mechanics, is a fundamental theory in physics that provides a description of the physical properties of nature at the scale of atoms and subatomic particles. It is the foundation of all quantum physics including quantum chemistry, quantum technology, and quantum information science. Classical physics, the description of physics that existed before the theory of relativity and quantum mechanics explains the aspects of nature at an ordinary macroscopic scale, while quantum mechanics explains the aspects of nature at small atomic and subatomic scales.`;
+
+  const handleReadAloud = () => {
+    if (isSpeaking) {
+      window.speechSynthesis.cancel();
+      setIsSpeaking(false);
+      setIsReading(false);
+      return;
+    }
+
+    setIsReading(true);
+    setIsSpeaking(true);
+
+    const utterance = new SpeechSynthesisUtterance(documentText);
+    utterance.rate = 1;
+    utterance.pitch = 1;
+    utterance.volume = 1;
+
+    utterance.onend = () => {
+      setIsSpeaking(false);
+      setIsReading(false);
+    };
+
+    window.speechSynthesis.speak(utterance);
+  };
 
   return (
     <DashboardLayout>
@@ -80,6 +110,21 @@ export default function DocumentViewer() {
                 </button>
                 <button className="p-2 hover:bg-gray-100 rounded">
                   <Bookmark className="w-4 h-4 text-gray-600" />
+                </button>
+                <button
+                  onClick={handleReadAloud}
+                  className={`p-2 rounded transition ${
+                    isSpeaking
+                      ? "bg-primary text-white"
+                      : "hover:bg-gray-100"
+                  }`}
+                  title={isSpeaking ? "Stop reading" : "Read aloud"}
+                >
+                  {isSpeaking ? (
+                    <VolumeX className="w-4 h-4" />
+                  ) : (
+                    <Volume2 className="w-4 h-4 text-gray-600" />
+                  )}
                 </button>
               </div>
 

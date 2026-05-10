@@ -109,51 +109,113 @@ export default function Profile() {
           {/* Right Sidebar */}
           <div className="space-y-6">
             {/* Achievements */}
-            <div className="bg-white rounded-xl p-6 border border-gray-200">
-              <h3 className="font-bold text-gray-900 mb-4 flex items-center gap-2">
+            <div className="bg-white dark:bg-slate-800 rounded-xl p-6 border border-gray-200 dark:border-slate-700">
+              <h3 className="font-bold text-gray-900 dark:text-white mb-4 flex items-center gap-2">
                 <Trophy className="w-5 h-5 text-yellow-500" />
                 Achievements
               </h3>
               <div className="space-y-3">
-                <div className="p-3 bg-yellow-50 rounded-lg border border-yellow-200">
-                  <p className="text-sm font-medium text-gray-900">🥇 Top Contributor</p>
-                  <p className="text-xs text-gray-600">Top 1% answers</p>
+                <div className="p-3 bg-yellow-50 dark:bg-yellow-900/10 rounded-lg border border-yellow-200 dark:border-yellow-800">
+                  <p className="text-sm font-medium text-gray-900 dark:text-white">🥇 Top Contributor</p>
+                  <p className="text-xs text-gray-600 dark:text-gray-400">Top 1% answers</p>
                 </div>
-                <div className="p-3 bg-green-50 rounded-lg border border-green-200">
-                  <p className="text-sm font-medium text-gray-900">📚 Dedicated Learner</p>
-                  <p className="text-xs text-gray-600">200+ hours studied</p>
+                <div className="p-3 bg-green-50 dark:bg-green-900/10 rounded-lg border border-green-200 dark:border-green-800">
+                  <p className="text-sm font-medium text-gray-900 dark:text-white">📚 Dedicated Learner</p>
+                  <p className="text-xs text-gray-600 dark:text-gray-400">200+ hours studied</p>
                 </div>
-                <div className="p-3 bg-blue-50 rounded-lg border border-blue-200">
-                  <p className="text-sm font-medium text-gray-900">⚡ Quick Responder</p>
-                  <p className="text-xs text-gray-600">Avg response time</p>
+                <div className="p-3 bg-blue-50 dark:bg-blue-900/10 rounded-lg border border-blue-200 dark:border-blue-800">
+                  <p className="text-sm font-medium text-gray-900 dark:text-white">⚡ Quick Responder</p>
+                  <p className="text-xs text-gray-600 dark:text-gray-400">Avg response time</p>
                 </div>
               </div>
             </div>
 
             {/* Study Statistics */}
-            <div className="bg-white rounded-xl p-6 border border-gray-200">
-              <h3 className="font-bold text-gray-900 mb-4">Study Statistics</h3>
+            <div className="bg-white dark:bg-slate-800 rounded-xl p-6 border border-gray-200 dark:border-slate-700">
+              <h3 className="font-bold text-gray-900 dark:text-white mb-4">Study Statistics</h3>
               <div className="space-y-3">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-2">
                     <Clock className="w-4 h-4 text-primary" />
-                    <p className="text-sm text-gray-600">Avg Daily Study</p>
+                    <p className="text-sm text-gray-600 dark:text-gray-400">Avg Daily Study</p>
                   </div>
-                  <p className="font-semibold text-gray-900">2.5h</p>
+                  <p className="font-semibold text-gray-900 dark:text-white">2.5h</p>
                 </div>
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-2">
                     <BookOpen className="w-4 h-4 text-secondary" />
-                    <p className="text-sm text-gray-600">Documents Uploaded</p>
+                    <p className="text-sm text-gray-600 dark:text-gray-400">Documents Uploaded</p>
                   </div>
-                  <p className="font-semibold text-gray-900">18</p>
+                  <p className="font-semibold text-gray-900 dark:text-white">18</p>
                 </div>
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-2">
                     <Zap className="w-4 h-4 text-orange-500" />
-                    <p className="text-sm text-gray-600">Questions Answered</p>
+                    <p className="text-sm text-gray-600 dark:text-gray-400">Questions Answered</p>
                   </div>
-                  <p className="font-semibold text-gray-900">42</p>
+                  <p className="font-semibold text-gray-900 dark:text-white">42</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Recent Activities */}
+            <div className="bg-white dark:bg-slate-800 rounded-xl p-6 border border-gray-200 dark:border-slate-700">
+              <h3 className="font-bold text-gray-900 dark:text-white mb-4">Recent Activities</h3>
+              <div className="space-y-3">
+                <div className="flex items-start gap-3 pb-3 border-b border-gray-200 dark:border-slate-700">
+                  <div className="w-2 h-2 bg-blue-500 rounded-full mt-1.5 flex-shrink-0"></div>
+                  <div>
+                    <p className="text-sm text-gray-900 dark:text-white">
+                      Generated summary for Chapter 5
+                    </p>
+                    <p className="text-xs text-gray-500 dark:text-gray-400">
+                      Physics • 2 hours ago
+                    </p>
+                  </div>
+                </div>
+                <div className="flex items-start gap-3 pb-3 border-b border-gray-200 dark:border-slate-700">
+                  <div className="w-2 h-2 bg-pink-500 rounded-full mt-1.5 flex-shrink-0"></div>
+                  <div>
+                    <p className="text-sm text-gray-900 dark:text-white">
+                      Asked 3 questions in Quantum Physics
+                    </p>
+                    <p className="text-xs text-gray-500 dark:text-gray-400">
+                      4 hours ago
+                    </p>
+                  </div>
+                </div>
+                <div className="flex items-start gap-3 pb-3 border-b border-gray-200 dark:border-slate-700">
+                  <div className="w-2 h-2 bg-green-500 rounded-full mt-1.5 flex-shrink-0"></div>
+                  <div>
+                    <p className="text-sm text-gray-900 dark:text-white">
+                      Completed 45-minute study session
+                    </p>
+                    <p className="text-xs text-gray-500 dark:text-gray-400">
+                      Yesterday
+                    </p>
+                  </div>
+                </div>
+                <div className="flex items-start gap-3 pb-3 border-b border-gray-200 dark:border-slate-700">
+                  <div className="w-2 h-2 bg-yellow-500 rounded-full mt-1.5 flex-shrink-0"></div>
+                  <div>
+                    <p className="text-sm text-gray-900 dark:text-white">
+                      Joined Study Group: ML Study Group
+                    </p>
+                    <p className="text-xs text-gray-500 dark:text-gray-400">
+                      2 days ago
+                    </p>
+                  </div>
+                </div>
+                <div className="flex items-start gap-3">
+                  <div className="w-2 h-2 bg-purple-500 rounded-full mt-1.5 flex-shrink-0"></div>
+                  <div>
+                    <p className="text-sm text-gray-900 dark:text-white">
+                      Uploaded Chemistry Notes
+                    </p>
+                    <p className="text-xs text-gray-500 dark:text-gray-400">
+                      3 days ago
+                    </p>
+                  </div>
                 </div>
               </div>
             </div>
