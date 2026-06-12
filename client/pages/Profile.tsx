@@ -16,9 +16,9 @@ import { useNavigate } from "react-router-dom";
 export default function Profile() {
   const navigate = useNavigate();
   const [isEditOpen, setIsEditOpen] = useState(false);
+  const [profilePicture, setProfilePicture] = useState("JD");
   const [editForm, setEditForm] = useState({
     name: "Jane Doe",
-    email: "jane.doe@university.edu",
     bio: "",
     interests: ["Machine Learning", "Quantum Physics", "Chemistry"],
   });
@@ -218,6 +218,28 @@ export default function Profile() {
               <div className="space-y-4 mb-6">
                 <div>
                   <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                    Profile Picture
+                  </label>
+                  <div className="flex items-center gap-4">
+                    <div className="w-16 h-16 bg-primary rounded-xl flex items-center justify-center text-white font-bold text-2xl">
+                      {profilePicture}
+                    </div>
+                    <div>
+                      <input
+                        type="text"
+                        value={profilePicture}
+                        onChange={(e) => setProfilePicture(e.target.value.substring(0, 2).toUpperCase())}
+                        placeholder="e.g., JD"
+                        maxLength={2}
+                        className="w-full px-4 py-2 bg-gray-50 dark:bg-slate-700 border border-gray-200 dark:border-slate-600 text-gray-900 dark:text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/50 text-sm"
+                      />
+                      <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">Initials (max 2 characters)</p>
+                    </div>
+                  </div>
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                     Full Name
                   </label>
                   <input
@@ -225,20 +247,6 @@ export default function Profile() {
                     value={editForm.name}
                     onChange={(e) =>
                       setEditForm({ ...editForm, name: e.target.value })
-                    }
-                    className="w-full px-4 py-2 bg-gray-50 dark:bg-slate-700 border border-gray-200 dark:border-slate-600 text-gray-900 dark:text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/50"
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                    Email
-                  </label>
-                  <input
-                    type="email"
-                    value={editForm.email}
-                    onChange={(e) =>
-                      setEditForm({ ...editForm, email: e.target.value })
                     }
                     className="w-full px-4 py-2 bg-gray-50 dark:bg-slate-700 border border-gray-200 dark:border-slate-600 text-gray-900 dark:text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/50"
                   />
