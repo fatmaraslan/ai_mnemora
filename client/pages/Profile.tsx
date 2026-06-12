@@ -196,6 +196,40 @@ export default function Profile() {
                 </div>
               </div>
             </div>
+
+            {/* My Friends */}
+            <div className="bg-white dark:bg-slate-800 rounded-xl p-6 border border-gray-200 dark:border-slate-700">
+              <h3 className="font-bold text-gray-900 dark:text-white mb-4 flex items-center gap-2">
+                <MessageCircle className="w-5 h-5 text-primary" />
+                My Friends
+              </h3>
+              <div className="space-y-3">
+                {[
+                  { id: "1", initials: "AC", name: "Alex Chen", email: "alex.chen@uni.edu" },
+                  { id: "2", initials: "SJ", name: "Sarah Johnson", email: "sarah.j@uni.edu" },
+                  { id: "3", initials: "MR", name: "Mike Rodriguez", email: "mike.r@uni.edu" },
+                  { id: "4", initials: "EW", name: "Emma Wilson", email: "emma.w@uni.edu" },
+                ].map((friend) => (
+                  <button
+                    key={friend.id}
+                    onClick={() => navigate(`/chat/${friend.id}`)}
+                    className="w-full flex items-center gap-3 p-3 bg-gray-50 dark:bg-slate-700/50 hover:bg-gray-100 dark:hover:bg-slate-700 rounded-lg border border-gray-200 dark:border-slate-600 transition text-left"
+                  >
+                    <div className="w-10 h-10 bg-primary rounded-lg flex items-center justify-center text-white font-semibold text-sm flex-shrink-0">
+                      {friend.initials}
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <p className="text-sm font-medium text-gray-900 dark:text-white">
+                        {friend.name}
+                      </p>
+                      <p className="text-xs text-gray-600 dark:text-gray-400 truncate">
+                        {friend.email}
+                      </p>
+                    </div>
+                  </button>
+                ))}
+              </div>
+            </div>
           </div>
         </div>
 
