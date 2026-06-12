@@ -266,6 +266,60 @@ export default function Profile() {
                     className="w-full px-4 py-2 bg-gray-50 dark:bg-slate-700 border border-gray-200 dark:border-slate-600 text-gray-900 dark:text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/50 placeholder-gray-500 dark:placeholder-gray-400"
                   />
                 </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-3">
+                    Interests & Tags
+                  </label>
+                  <div className="space-y-2 mb-3">
+                    {editForm.interests.map((interest, idx) => (
+                      <div
+                        key={idx}
+                        className="flex items-center justify-between bg-gray-50 dark:bg-slate-700 px-3 py-2 rounded-lg border border-gray-200 dark:border-slate-600"
+                      >
+                        <span className="text-sm text-gray-900 dark:text-white">
+                          {interest}
+                        </span>
+                        <button
+                          type="button"
+                          onClick={() => {
+                            const newInterests = editForm.interests.filter(
+                              (_, i) => i !== idx
+                            );
+                            setEditForm({ ...editForm, interests: newInterests });
+                          }}
+                          className="text-red-500 hover:text-red-600 text-sm font-semibold"
+                        >
+                          Remove
+                        </button>
+                      </div>
+                    ))}
+                  </div>
+                  <div className="flex gap-2">
+                    <input
+                      type="text"
+                      id="newTag"
+                      placeholder="Add new tag..."
+                      className="flex-1 px-3 py-2 bg-gray-50 dark:bg-slate-700 border border-gray-200 dark:border-slate-600 text-gray-900 dark:text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/50 text-sm placeholder-gray-500 dark:placeholder-gray-400"
+                    />
+                    <button
+                      type="button"
+                      onClick={() => {
+                        const input = document.getElementById("newTag") as HTMLInputElement;
+                        if (input?.value.trim()) {
+                          setEditForm({
+                            ...editForm,
+                            interests: [...editForm.interests, input.value.trim()],
+                          });
+                          input.value = "";
+                        }
+                      }}
+                      className="px-4 py-2 bg-primary hover:bg-primary/90 text-white rounded-lg text-sm font-medium transition"
+                    >
+                      Add
+                    </button>
+                  </div>
+                </div>
               </div>
 
               <div className="flex gap-3">

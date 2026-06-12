@@ -1,9 +1,21 @@
 import { DashboardLayout } from "@/components/DashboardLayout";
 import { Button } from "@/components/ui/button";
-import { Search, Plus } from "lucide-react";
+import { Search, Plus, X } from "lucide-react";
 import { Link } from "react-router-dom";
+import { useState } from "react";
 
 export default function MyChats() {
+  const [showAddFriendModal, setShowAddFriendModal] = useState(false);
+  const [friendCode, setFriendCode] = useState("");
+
+  const handleAddFriend = () => {
+    if (friendCode.trim()) {
+      alert(`Friend added with code: ${friendCode}`);
+      setFriendCode("");
+      setShowAddFriendModal(false);
+    }
+  };
+
   return (
     <DashboardLayout>
       <div className="p-8">
@@ -14,7 +26,10 @@ export default function MyChats() {
             </h1>
             <p className="text-gray-600 dark:text-gray-400">Your private conversations</p>
           </div>
-          <Button className="bg-primary hover:bg-primary/90">
+          <Button
+            onClick={() => setShowAddFriendModal(true)}
+            className="bg-primary hover:bg-primary/90"
+          >
             <Plus className="w-4 h-4 mr-2" />
             New Chat
           </Button>
@@ -109,6 +124,59 @@ export default function MyChats() {
             </Button>
           </div>
         </div>
+
+        {/* Add Friend Modal */}
+        {showAddFriendModal && (
+          <div className="fixed inset-0 bg-black/50 dark:bg-black/70 z-50 flex items-center justify-center p-4">
+            <div className="bg-white dark:bg-slate-800 rounded-xl max-w-md w-full p-6 border border-gray-200 dark:border-slate-700">
+              <div className="flex items-center justify-between mb-6">
+                <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
+                  Add Friend via Code
+                </h2>
+                <button
+                  onClick={() => setShowAddFriendModal(false)}
+                  className="p-2 hover:bg-gray-100 dark:hover:bg-slate-700 rounded-lg transition"
+                >
+                  <X className="w-5 h-5 text-gray-600 dark:text-gray-400" />
+                </button>
+              </div>
+
+              <div className="space-y-4 mb-6">
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                    Friend Code
+                  </label>
+                  <input
+                    type="text"
+                    value={friendCode}
+                    onChange={(e) => setFriendCode(e.target.value)}
+                    placeholder="Enter friend's code (e.g., AC-2024-789)"
+                    className="w-full px-4 py-2 bg-gray-50 dark:bg-slate-700 border border-gray-200 dark:border-slate-600 text-gray-900 dark:text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/50 placeholder-gray-500 dark:placeholder-gray-400"
+                  />
+                </div>
+                <p className="text-xs text-gray-600 dark:text-gray-400">
+                  You can find your friend's code on their profile page.
+                </p>
+              </div>
+
+              <div className="flex gap-3">
+                <Button
+                  onClick={handleAddFriend}
+                  className="flex-1 bg-primary hover:bg-primary/90 text-white"
+                >
+                  Add Friend
+                </Button>
+                <Button
+                  variant="outline"
+                  onClick={() => setShowAddFriendModal(false)}
+                  className="flex-1"
+                >
+                  Cancel
+                </Button>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     </DashboardLayout>
   );
