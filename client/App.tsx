@@ -21,8 +21,6 @@ import StudyMusic from "./pages/StudyMusic";
 import Settings from "./pages/Settings";
 import Upgrade from "./pages/Upgrade";
 import Payment from "./pages/Payment";
-import QuizGenerator from "./pages/QuizGenerator";
-import FlashcardsGenerator from "./pages/FlashcardsGenerator";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -53,8 +51,6 @@ export default function App() {
             <Route path="/settings" element={<Settings />} />
             <Route path="/upgrade" element={<Upgrade />} />
             <Route path="/payment" element={<Payment />} />
-            <Route path="/quiz-generator" element={<QuizGenerator />} />
-            <Route path="/flashcards-generator" element={<FlashcardsGenerator />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>

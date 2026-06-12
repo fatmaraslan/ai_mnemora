@@ -4,7 +4,6 @@ import {
   Edit,
   Copy,
   LogOut,
-  Trophy,
   BookOpen,
   MessageCircle,
   Zap,
@@ -108,28 +107,6 @@ export default function Profile() {
 
           {/* Right Sidebar */}
           <div className="space-y-6">
-            {/* Achievements */}
-            <div className="bg-white dark:bg-slate-800 rounded-xl p-6 border border-gray-200 dark:border-slate-700">
-              <h3 className="font-bold text-gray-900 dark:text-white mb-4 flex items-center gap-2">
-                <Trophy className="w-5 h-5 text-yellow-500" />
-                Achievements
-              </h3>
-              <div className="space-y-3">
-                <div className="p-3 bg-yellow-50 dark:bg-yellow-900/10 rounded-lg border border-yellow-200 dark:border-yellow-800">
-                  <p className="text-sm font-medium text-gray-900 dark:text-white">🥇 Top Contributor</p>
-                  <p className="text-xs text-gray-600 dark:text-gray-400">Top 1% answers</p>
-                </div>
-                <div className="p-3 bg-green-50 dark:bg-green-900/10 rounded-lg border border-green-200 dark:border-green-800">
-                  <p className="text-sm font-medium text-gray-900 dark:text-white">📚 Dedicated Learner</p>
-                  <p className="text-xs text-gray-600 dark:text-gray-400">200+ hours studied</p>
-                </div>
-                <div className="p-3 bg-blue-50 dark:bg-blue-900/10 rounded-lg border border-blue-200 dark:border-blue-800">
-                  <p className="text-sm font-medium text-gray-900 dark:text-white">⚡ Quick Responder</p>
-                  <p className="text-xs text-gray-600 dark:text-gray-400">Avg response time</p>
-                </div>
-              </div>
-            </div>
-
             {/* Study Statistics */}
             <div className="bg-white dark:bg-slate-800 rounded-xl p-6 border border-gray-200 dark:border-slate-700">
               <h3 className="font-bold text-gray-900 dark:text-white mb-4">Study Statistics</h3>

@@ -160,47 +160,6 @@ export default function Dashboard() {
 
           {/* Schedule Sidebar */}
           <div className="space-y-6">
-            {/* Upcoming Schedule */}
-            <div className="bg-white dark:bg-slate-800 rounded-xl p-6 border border-gray-200 dark:border-slate-700">
-              <h3 className="font-semibold text-gray-900 dark:text-white mb-4">
-                Today's Schedule
-              </h3>
-              <div className="space-y-3">
-                {/* Event 1 */}
-                <div className="flex gap-3">
-                  <div className="text-xs font-semibold text-gray-600 dark:text-gray-400 whitespace-nowrap pt-1">
-                    2:00 PM
-                  </div>
-                  <div className="flex-1">
-                    <p className="text-sm font-semibold text-gray-900 dark:text-white">
-                      ML Assignment
-                    </p>
-                    <p className="text-xs text-gray-500 dark:text-gray-400">
-                      3:00 PM
-                    </p>
-                  </div>
-                </div>
-
-                {/* Event 2 */}
-                <div className="flex gap-3">
-                  <div className="text-xs font-semibold text-gray-600 dark:text-gray-400 whitespace-nowrap pt-1">
-                    3:00 PM
-                  </div>
-                  <div className="flex-1">
-                    <p className="text-sm font-semibold text-gray-900 dark:text-white">
-                      Study Group
-                    </p>
-                    <p className="text-xs text-gray-500 dark:text-gray-400">
-                      6:00 PM - 7:30 PM
-                    </p>
-                  </div>
-                </div>
-              </div>
-              <button className="w-full mt-4 text-sm text-primary font-semibold hover:underline">
-                View Full Schedule
-              </button>
-            </div>
-
             {/* Recent Activity */}
             <div className="bg-white dark:bg-slate-800 rounded-xl p-6 border border-gray-200 dark:border-slate-700">
               <div className="flex items-center justify-between mb-4">
