@@ -9,11 +9,24 @@ import {
   MessageCircle,
   ArrowRight,
   Upload,
+  X,
 } from "lucide-react";
 import { Brain } from "lucide-react";
 import { Link } from "react-router-dom";
+import { useState } from "react";
 
 export default function Dashboard() {
+  const [showUploadModal, setShowUploadModal] = useState(false);
+  const [uploadedFiles, setUploadedFiles] = useState<string[]>([]);
+  const [fileInput, setFileInput] = useState("");
+
+  const handleFileUpload = () => {
+    if (fileInput.trim()) {
+      setUploadedFiles([...uploadedFiles, fileInput]);
+      setFileInput("");
+    }
+  };
+
   return (
     <DashboardLayout>
       <div className="p-8">
@@ -31,7 +44,10 @@ export default function Dashboard() {
             <button className="p-3 bg-gray-100 hover:bg-gray-200 rounded-lg transition">
               <span className="text-gray-600">⏱️</span>
             </button>
-            <Button className="bg-primary hover:bg-primary/90 text-white">
+            <Button
+              onClick={() => setShowUploadModal(true)}
+              className="bg-primary hover:bg-primary/90 text-white"
+            >
               <Upload className="w-4 h-4 mr-2" />
               Upload PDF
             </Button>
@@ -151,7 +167,10 @@ export default function Dashboard() {
                 <p className="text-xs text-gray-600 dark:text-gray-400 mb-3">
                   Drop your PDF here or click to browse files
                 </p>
-                <Button className="bg-primary hover:bg-primary/90 text-white w-full">
+                <Button
+                  onClick={() => setShowUploadModal(true)}
+                  className="bg-primary hover:bg-primary/90 text-white w-full"
+                >
                   Choose File
                 </Button>
               </div>
@@ -241,6 +260,84 @@ export default function Dashboard() {
             </div>
           </div>
         </div>
+
+        {/* Upload Modal */}
+        {showUploadModal && (
+          <div className="fixed inset-0 bg-black/50 dark:bg-black/70 z-50 flex items-center justify-center p-4">
+            <div className="bg-white dark:bg-slate-800 rounded-xl max-w-md w-full p-6 border border-gray-200 dark:border-slate-700">
+              <div className="flex items-center justify-between mb-6">
+                <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
+                  Upload PDF
+                </h2>
+                <button
+                  onClick={() => setShowUploadModal(false)}
+                  className="p-2 hover:bg-gray-100 dark:hover:bg-slate-700 rounded-lg transition"
+                >
+                  <X className="w-5 h-5 text-gray-600 dark:text-gray-400" />
+                </button>
+              </div>
+
+              <div className="space-y-4 mb-6">
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                    File Name
+                  </label>
+                  <input
+                    type="text"
+                    value={fileInput}
+                    onChange={(e) => setFileInput(e.target.value)}
+                    placeholder="e.g., Chemistry_Notes.pdf"
+                    className="w-full px-4 py-2 bg-gray-50 dark:bg-slate-700 border border-gray-200 dark:border-slate-600 text-gray-900 dark:text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/50 placeholder-gray-500 dark:placeholder-gray-400"
+                  />
+                </div>
+
+                {uploadedFiles.length > 0 && (
+                  <div className="border-t border-gray-200 dark:border-slate-700 pt-4">
+                    <p className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-3">
+                      Uploaded Files ({uploadedFiles.length})
+                    </p>
+                    <div className="space-y-2">
+                      {uploadedFiles.map((file, idx) => (
+                        <div
+                          key={idx}
+                          className="flex items-center justify-between bg-gray-50 dark:bg-slate-700 p-3 rounded-lg"
+                        >
+                          <div className="flex items-center gap-2">
+                            <FileText className="w-4 h-4 text-primary" />
+                            <span className="text-sm text-gray-900 dark:text-white">{file}</span>
+                          </div>
+                          <button
+                            onClick={() => setUploadedFiles(uploadedFiles.filter((_, i) => i !== idx))}
+                            className="text-red-500 hover:text-red-600"
+                          >
+                            <X className="w-4 h-4" />
+                          </button>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </div>
+
+              <div className="flex gap-3">
+                <Button
+                  onClick={handleFileUpload}
+                  className="flex-1 bg-primary hover:bg-primary/90 text-white"
+                >
+                  <Upload className="w-4 h-4 mr-2" />
+                  Upload
+                </Button>
+                <Button
+                  variant="outline"
+                  onClick={() => setShowUploadModal(false)}
+                  className="flex-1"
+                >
+                  Close
+                </Button>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     </DashboardLayout>
   );

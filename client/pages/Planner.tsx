@@ -1,8 +1,26 @@
 import { DashboardLayout } from "@/components/DashboardLayout";
 import { Button } from "@/components/ui/button";
-import { Plus, Clock, Target, Flame, CheckCircle, Settings, TrendingUp } from "lucide-react";
+import { Plus, Clock, Target, Flame, CheckCircle, Settings, TrendingUp, X } from "lucide-react";
+import { useState } from "react";
 
 export default function Planner() {
+  const [showAddTaskModal, setShowAddTaskModal] = useState(false);
+  const [taskTitle, setTaskTitle] = useState("");
+  const [taskSubject, setTaskSubject] = useState("");
+  const [taskPriority, setTaskPriority] = useState("Medium");
+  const [taskDueDate, setTaskDueDate] = useState("");
+
+  const handleAddTask = () => {
+    if (taskTitle.trim()) {
+      alert(`Task "${taskTitle}" added for ${taskSubject}!`);
+      setTaskTitle("");
+      setTaskSubject("");
+      setTaskPriority("Medium");
+      setTaskDueDate("");
+      setShowAddTaskModal(false);
+    }
+  };
+
   return (
     <DashboardLayout>
       <div className="p-8">
@@ -19,7 +37,10 @@ export default function Planner() {
             <button className="p-3 bg-white dark:bg-slate-800 border border-gray-200 dark:border-slate-700 rounded-lg hover:bg-gray-50 dark:hover:bg-slate-700 transition">
               <Settings className="w-5 h-5 text-gray-600 dark:text-gray-400" />
             </button>
-            <Button className="bg-primary hover:bg-primary/90">
+            <Button
+              onClick={() => setShowAddTaskModal(true)}
+              className="bg-primary hover:bg-primary/90"
+            >
               <Plus className="w-4 h-4 mr-2" />
               Add Task
             </Button>
@@ -129,7 +150,10 @@ export default function Planner() {
               <h2 className="text-xl font-bold text-gray-900 dark:text-white">Your Tasks</h2>
               <p className="text-sm text-gray-600 dark:text-gray-400">3 tasks remaining</p>
             </div>
-            <Button className="bg-primary hover:bg-primary/90">
+            <Button
+              onClick={() => setShowAddTaskModal(true)}
+              className="bg-primary hover:bg-primary/90"
+            >
               <Plus className="w-4 h-4 mr-2" />
               Add Task
             </Button>
@@ -193,6 +217,97 @@ export default function Planner() {
             ))}
           </div>
         </div>
+
+        {/* Add Task Modal */}
+        {showAddTaskModal && (
+          <div className="fixed inset-0 bg-black/50 dark:bg-black/70 z-50 flex items-center justify-center p-4">
+            <div className="bg-white dark:bg-slate-800 rounded-xl max-w-md w-full p-6 border border-gray-200 dark:border-slate-700">
+              <div className="flex items-center justify-between mb-6">
+                <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
+                  Add New Task
+                </h2>
+                <button
+                  onClick={() => setShowAddTaskModal(false)}
+                  className="p-2 hover:bg-gray-100 dark:hover:bg-slate-700 rounded-lg transition"
+                >
+                  <X className="w-5 h-5 text-gray-600 dark:text-gray-400" />
+                </button>
+              </div>
+
+              <div className="space-y-4 mb-6">
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                    Task Title
+                  </label>
+                  <input
+                    type="text"
+                    value={taskTitle}
+                    onChange={(e) => setTaskTitle(e.target.value)}
+                    placeholder="e.g., Complete Chemistry Lab Report"
+                    className="w-full px-4 py-2 bg-gray-50 dark:bg-slate-700 border border-gray-200 dark:border-slate-600 text-gray-900 dark:text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/50 placeholder-gray-500 dark:placeholder-gray-400"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                    Subject
+                  </label>
+                  <input
+                    type="text"
+                    value={taskSubject}
+                    onChange={(e) => setTaskSubject(e.target.value)}
+                    placeholder="e.g., Chemistry"
+                    className="w-full px-4 py-2 bg-gray-50 dark:bg-slate-700 border border-gray-200 dark:border-slate-600 text-gray-900 dark:text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/50 placeholder-gray-500 dark:placeholder-gray-400"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                    Priority
+                  </label>
+                  <select
+                    value={taskPriority}
+                    onChange={(e) => setTaskPriority(e.target.value)}
+                    className="w-full px-4 py-2 bg-gray-50 dark:bg-slate-700 border border-gray-200 dark:border-slate-600 text-gray-900 dark:text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/50"
+                  >
+                    <option>Low</option>
+                    <option>Medium</option>
+                    <option>High</option>
+                  </select>
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                    Due Date
+                  </label>
+                  <input
+                    type="text"
+                    value={taskDueDate}
+                    onChange={(e) => setTaskDueDate(e.target.value)}
+                    placeholder="e.g., Tomorrow, This Week, Today"
+                    className="w-full px-4 py-2 bg-gray-50 dark:bg-slate-700 border border-gray-200 dark:border-slate-600 text-gray-900 dark:text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/50 placeholder-gray-500 dark:placeholder-gray-400"
+                  />
+                </div>
+              </div>
+
+              <div className="flex gap-3">
+                <Button
+                  onClick={handleAddTask}
+                  className="flex-1 bg-primary hover:bg-primary/90 text-white"
+                >
+                  Add Task
+                </Button>
+                <Button
+                  variant="outline"
+                  onClick={() => setShowAddTaskModal(false)}
+                  className="flex-1"
+                >
+                  Cancel
+                </Button>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     </DashboardLayout>
   );

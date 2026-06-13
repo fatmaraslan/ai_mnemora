@@ -1,6 +1,6 @@
 import { DashboardLayout } from "@/components/DashboardLayout";
 import { Button } from "@/components/ui/button";
-import { ArrowLeft, Send, UserPlus, X } from "lucide-react";
+import { ArrowLeft, Send, UserPlus, X, Trash2, Ban } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 
@@ -288,9 +288,32 @@ export default function ChatConversation() {
                 </div>
               </div>
 
+              <div className="flex gap-2 mt-6">
+                <Button
+                  onClick={() => {
+                    alert("Friend deleted");
+                    setShowViewProfileModal(false);
+                  }}
+                  className="flex-1 bg-red-500 hover:bg-red-600 text-white flex items-center justify-center gap-2"
+                >
+                  <Trash2 className="w-4 h-4" />
+                  Delete
+                </Button>
+                <Button
+                  onClick={() => {
+                    alert("Friend blocked");
+                    setShowViewProfileModal(false);
+                  }}
+                  className="flex-1 bg-orange-500 hover:bg-orange-600 text-white flex items-center justify-center gap-2"
+                >
+                  <Ban className="w-4 h-4" />
+                  Block
+                </Button>
+              </div>
               <Button
                 onClick={() => setShowViewProfileModal(false)}
-                className="w-full mt-6 bg-primary hover:bg-primary/90 text-white"
+                variant="outline"
+                className="w-full mt-2"
               >
                 Close
               </Button>

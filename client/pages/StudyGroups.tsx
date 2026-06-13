@@ -1,9 +1,41 @@
 import { DashboardLayout } from "@/components/DashboardLayout";
 import { Button } from "@/components/ui/button";
-import { Users, Search, Plus, Bell } from "lucide-react";
+import { Users, Search, Plus, Bell, X, Check } from "lucide-react";
 import { Link } from "react-router-dom";
+import { useState } from "react";
 
 export default function StudyGroups() {
+  const [showCreateModal, setShowCreateModal] = useState(false);
+  const [showJoinModal, setShowJoinModal] = useState(false);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [groupName, setGroupName] = useState("");
+  const [joinCode, setJoinCode] = useState("");
+  const [selectedFriends, setSelectedFriends] = useState<string[]>([]);
+
+  const friends = [
+    { id: "1", name: "Alex Chen", initials: "AC" },
+    { id: "2", name: "Sarah Johnson", initials: "SJ" },
+    { id: "3", name: "Mike Rodriguez", initials: "MR" },
+    { id: "4", name: "Emma Wilson", initials: "EW" },
+  ];
+
+  const handleCreateGroup = () => {
+    if (groupName.trim()) {
+      alert(`Group "${groupName}" created with ${selectedFriends.length} friends!`);
+      setGroupName("");
+      setSelectedFriends([]);
+      setShowCreateModal(false);
+    }
+  };
+
+  const handleJoinGroup = () => {
+    if (joinCode.trim()) {
+      alert(`Joined group with code: ${joinCode}`);
+      setJoinCode("");
+      setShowJoinModal(false);
+    }
+  };
+
   return (
     <DashboardLayout>
       <div className="p-8">
@@ -15,11 +47,17 @@ export default function StudyGroups() {
             <p className="text-gray-600 dark:text-gray-400">Connect and study with peers</p>
           </div>
           <div className="flex gap-3">
-            <button className="px-4 py-2 bg-white dark:bg-slate-800 border border-gray-200 dark:border-slate-700 text-gray-900 dark:text-white rounded-lg hover:bg-gray-50 dark:hover:bg-slate-700 flex items-center gap-2">
+            <button
+              onClick={() => setShowJoinModal(true)}
+              className="px-4 py-2 bg-white dark:bg-slate-800 border border-gray-200 dark:border-slate-700 text-gray-900 dark:text-white rounded-lg hover:bg-gray-50 dark:hover:bg-slate-700 flex items-center gap-2"
+            >
               <Plus className="w-4 h-4" />
               Join with Code
             </button>
-            <Button className="bg-primary hover:bg-primary/90">
+            <Button
+              onClick={() => setShowCreateModal(true)}
+              className="bg-primary hover:bg-primary/90"
+            >
               <Plus className="w-4 h-4 mr-2" />
               Create Group
             </Button>
@@ -32,10 +70,17 @@ export default function StudyGroups() {
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
             <input
               type="text"
-              placeholder="Search groups..."
+              placeholder="Search groups by name or code..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
               className="w-full pl-10 pr-4 py-2 bg-white dark:bg-slate-800 border border-gray-200 dark:border-slate-700 text-gray-900 dark:text-white rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary/50 placeholder-gray-500 dark:placeholder-gray-400"
             />
           </div>
+          {searchTerm && (
+            <p className="text-xs text-gray-600 dark:text-gray-400 mt-2">
+              Searching for: <span className="font-semibold">{searchTerm}</span>
+            </p>
+          )}
         </div>
 
         {/* My Groups */}
@@ -200,6 +245,146 @@ export default function StudyGroups() {
             </div>
           </div>
         </div>
+
+        {/* Create Group Modal */}
+        {showCreateModal && (
+          <div className="fixed inset-0 bg-black/50 dark:bg-black/70 z-50 flex items-center justify-center p-4">
+            <div className="bg-white dark:bg-slate-800 rounded-xl max-w-md w-full p-6 border border-gray-200 dark:border-slate-700 max-h-[90vh] overflow-y-auto">
+              <div className="flex items-center justify-between mb-6">
+                <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
+                  Create Group
+                </h2>
+                <button
+                  onClick={() => setShowCreateModal(false)}
+                  className="p-2 hover:bg-gray-100 dark:hover:bg-slate-700 rounded-lg transition"
+                >
+                  <X className="w-5 h-5 text-gray-600 dark:text-gray-400" />
+                </button>
+              </div>
+
+              <div className="space-y-4 mb-6">
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                    Group Name
+                  </label>
+                  <input
+                    type="text"
+                    value={groupName}
+                    onChange={(e) => setGroupName(e.target.value)}
+                    placeholder="e.g., Chemistry Study Squad"
+                    className="w-full px-4 py-2 bg-gray-50 dark:bg-slate-700 border border-gray-200 dark:border-slate-600 text-gray-900 dark:text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/50 placeholder-gray-500 dark:placeholder-gray-400"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-3">
+                    Add Friends ({selectedFriends.length})
+                  </label>
+                  <div className="space-y-2">
+                    {friends.map((friend) => (
+                      <button
+                        key={friend.id}
+                        onClick={() => {
+                          if (selectedFriends.includes(friend.id)) {
+                            setSelectedFriends(selectedFriends.filter((id) => id !== friend.id));
+                          } else {
+                            setSelectedFriends([...selectedFriends, friend.id]);
+                          }
+                        }}
+                        className={`w-full flex items-center justify-between p-3 rounded-lg border transition ${
+                          selectedFriends.includes(friend.id)
+                            ? "bg-primary/10 border-primary text-primary"
+                            : "bg-gray-50 dark:bg-slate-700 border-gray-200 dark:border-slate-600 hover:border-primary/50"
+                        }`}
+                      >
+                        <div className="flex items-center gap-3">
+                          <div className="w-8 h-8 bg-primary rounded-full flex items-center justify-center text-white text-xs font-semibold">
+                            {friend.initials}
+                          </div>
+                          <span className="text-sm font-medium text-gray-900 dark:text-white">
+                            {friend.name}
+                          </span>
+                        </div>
+                        {selectedFriends.includes(friend.id) && (
+                          <Check className="w-5 h-5 text-primary" />
+                        )}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              </div>
+
+              <div className="flex gap-3">
+                <Button
+                  onClick={handleCreateGroup}
+                  className="flex-1 bg-primary hover:bg-primary/90 text-white"
+                >
+                  Create Group
+                </Button>
+                <Button
+                  variant="outline"
+                  onClick={() => setShowCreateModal(false)}
+                  className="flex-1"
+                >
+                  Cancel
+                </Button>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Join with Code Modal */}
+        {showJoinModal && (
+          <div className="fixed inset-0 bg-black/50 dark:bg-black/70 z-50 flex items-center justify-center p-4">
+            <div className="bg-white dark:bg-slate-800 rounded-xl max-w-md w-full p-6 border border-gray-200 dark:border-slate-700">
+              <div className="flex items-center justify-between mb-6">
+                <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
+                  Join Group with Code
+                </h2>
+                <button
+                  onClick={() => setShowJoinModal(false)}
+                  className="p-2 hover:bg-gray-100 dark:hover:bg-slate-700 rounded-lg transition"
+                >
+                  <X className="w-5 h-5 text-gray-600 dark:text-gray-400" />
+                </button>
+              </div>
+
+              <div className="space-y-4 mb-6">
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                    Group Code
+                  </label>
+                  <input
+                    type="text"
+                    value={joinCode}
+                    onChange={(e) => setJoinCode(e.target.value)}
+                    placeholder="e.g., CS-2024-789"
+                    className="w-full px-4 py-2 bg-gray-50 dark:bg-slate-700 border border-gray-200 dark:border-slate-600 text-gray-900 dark:text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/50 placeholder-gray-500 dark:placeholder-gray-400"
+                  />
+                </div>
+                <p className="text-xs text-gray-600 dark:text-gray-400">
+                  Ask the group admin for the group code to join.
+                </p>
+              </div>
+
+              <div className="flex gap-3">
+                <Button
+                  onClick={handleJoinGroup}
+                  className="flex-1 bg-primary hover:bg-primary/90 text-white"
+                >
+                  Join Group
+                </Button>
+                <Button
+                  variant="outline"
+                  onClick={() => setShowJoinModal(false)}
+                  className="flex-1"
+                >
+                  Cancel
+                </Button>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     </DashboardLayout>
   );

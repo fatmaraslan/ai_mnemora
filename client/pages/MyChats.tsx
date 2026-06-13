@@ -7,6 +7,7 @@ import { useState } from "react";
 export default function MyChats() {
   const [showAddFriendModal, setShowAddFriendModal] = useState(false);
   const [friendCode, setFriendCode] = useState("");
+  const [searchTerm, setSearchTerm] = useState("");
 
   const handleAddFriend = () => {
     if (friendCode.trim()) {
@@ -41,10 +42,17 @@ export default function MyChats() {
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
             <input
               type="text"
-              placeholder="Search chats..."
+              placeholder="Search by name or friend code..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
               className="w-full pl-10 pr-4 py-2 bg-white dark:bg-slate-800 border border-gray-200 dark:border-slate-700 text-gray-900 dark:text-white rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary/50 placeholder-gray-500 dark:placeholder-gray-400"
             />
           </div>
+          {searchTerm && (
+            <p className="text-xs text-gray-600 dark:text-gray-400 mt-2">
+              Searching for: <span className="font-semibold">{searchTerm}</span>
+            </p>
+          )}
         </div>
 
         {/* Chat List */}
