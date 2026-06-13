@@ -280,15 +280,23 @@ export default function Dashboard() {
               <div className="space-y-4 mb-6">
                 <div>
                   <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                    File Name
+                    Choose PDF File
                   </label>
                   <input
-                    type="text"
-                    value={fileInput}
-                    onChange={(e) => setFileInput(e.target.value)}
-                    placeholder="e.g., Chemistry_Notes.pdf"
-                    className="w-full px-4 py-2 bg-gray-50 dark:bg-slate-700 border border-gray-200 dark:border-slate-600 text-gray-900 dark:text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/50 placeholder-gray-500 dark:placeholder-gray-400"
+                    type="file"
+                    accept=".pdf"
+                    onChange={(e) => {
+                      if (e.target.files?.[0]) {
+                        setFileInput(e.target.files[0].name);
+                      }
+                    }}
+                    className="w-full px-4 py-2 bg-gray-50 dark:bg-slate-700 border border-gray-200 dark:border-slate-600 text-gray-900 dark:text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/50"
                   />
+                  {fileInput && (
+                    <p className="text-sm text-green-600 dark:text-green-400 mt-2">
+                      ✓ File selected: {fileInput}
+                    </p>
+                  )}
                 </div>
 
                 {uploadedFiles.length > 0 && (

@@ -127,7 +127,12 @@ export default function MyChats() {
                 Get instant help with your studies. Ask questions anytime!
               </p>
             </div>
-            <Button className="bg-primary hover:bg-primary/90">
+            <Button
+              onClick={() => {
+                alert("Starting AI Chat... New conversation opened!");
+              }}
+              className="bg-primary hover:bg-primary/90"
+            >
               Start AI Chat
             </Button>
           </div>

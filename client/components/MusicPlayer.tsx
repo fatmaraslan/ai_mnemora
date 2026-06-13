@@ -10,7 +10,17 @@ export function MusicPlayer({ isOpen, onClose }: MusicPlayerProps) {
   const [isPlaying, setIsPlaying] = useState(false);
   const [volume, setVolume] = useState(0.7);
   const [currentTime, setCurrentTime] = useState(0);
-  const [duration, setDuration] = useState(180); // 3 minutes default
+  const [duration, setDuration] = useState(180);
+  const [currentTrack, setCurrentTrack] = useState(0);
+  const audioRef = useState<HTMLAudioElement | null>(null)[1];
+
+  // Audio playlist URLs (using web audio API simulation)
+  const playlist = [
+    { name: "Lo-fi Hip Hop - Chill Study", duration: 240 },
+    { name: "Jazz Classics - Focus Mode", duration: 300 },
+    { name: "Ambient Sounds - Meditation", duration: 270 },
+    { name: "Piano - Deep Work", duration: 250 },
+  ];
 
   useEffect(() => {
     if (!isPlaying) return;
@@ -18,7 +28,13 @@ export function MusicPlayer({ isOpen, onClose }: MusicPlayerProps) {
     const interval = setInterval(() => {
       setCurrentTime((prev) => {
         if (prev >= duration) {
-          setIsPlaying(false);
+          // Go to next track
+          if (currentTrack < playlist.length - 1) {
+            setCurrentTrack(currentTrack + 1);
+            setDuration(playlist[currentTrack + 1].duration);
+          } else {
+            setIsPlaying(false);
+          }
           return 0;
         }
         return prev + 1;
@@ -26,7 +42,7 @@ export function MusicPlayer({ isOpen, onClose }: MusicPlayerProps) {
     }, 1000);
 
     return () => clearInterval(interval);
-  }, [isPlaying, duration]);
+  }, [isPlaying, duration, currentTrack, playlist]);
 
   const formatTime = (seconds: number) => {
     const mins = Math.floor(seconds / 60);
@@ -59,7 +75,7 @@ export function MusicPlayer({ isOpen, onClose }: MusicPlayerProps) {
         {/* Now Playing */}
         <div className="text-center">
           <p className="text-sm font-medium mb-1">Now Playing</p>
-          <p className="text-xs text-white/80">Lo-fi Hip Hop - Chill Study</p>
+          <p className="text-xs text-white/80">{playlist[currentTrack].name}</p>
         </div>
 
         {/* Progress Bar */}
@@ -77,11 +93,26 @@ export function MusicPlayer({ isOpen, onClose }: MusicPlayerProps) {
         </div>
 
         {/* Controls */}
-        <div className="flex items-center justify-between">
+        <div className="flex items-center justify-between gap-2">
+          {/* Previous */}
+          <button
+            onClick={() => {
+              if (currentTrack > 0) {
+                setCurrentTrack(currentTrack - 1);
+                setCurrentTime(0);
+                setDuration(playlist[currentTrack - 1].duration);
+              }
+            }}
+            className="w-10 h-10 bg-white/20 hover:bg-white/30 rounded-full flex items-center justify-center transition text-xs font-semibold"
+            title="Previous"
+          >
+            ⏮
+          </button>
+
           {/* Play/Pause */}
           <button
             onClick={() => setIsPlaying(!isPlaying)}
-            className="w-12 h-12 bg-white/20 hover:bg-white/30 rounded-full flex items-center justify-center transition"
+            className="w-12 h-12 bg-white/30 hover:bg-white/40 rounded-full flex items-center justify-center transition"
           >
             {isPlaying ? (
               <Pause className="w-6 h-6" />
@@ -90,9 +121,24 @@ export function MusicPlayer({ isOpen, onClose }: MusicPlayerProps) {
             )}
           </button>
 
+          {/* Next */}
+          <button
+            onClick={() => {
+              if (currentTrack < playlist.length - 1) {
+                setCurrentTrack(currentTrack + 1);
+                setCurrentTime(0);
+                setDuration(playlist[currentTrack + 1].duration);
+              }
+            }}
+            className="w-10 h-10 bg-white/20 hover:bg-white/30 rounded-full flex items-center justify-center transition text-xs font-semibold"
+            title="Next"
+          >
+            ⏭
+          </button>
+
           {/* Volume */}
-          <div className="flex items-center gap-2 flex-1 px-4">
-            <Volume2 className="w-4 h-4" />
+          <div className="flex items-center gap-1 flex-1 px-2">
+            <Volume2 className="w-4 h-4 flex-shrink-0" />
             <input
               type="range"
               min="0"
@@ -108,18 +154,22 @@ export function MusicPlayer({ isOpen, onClose }: MusicPlayerProps) {
         <div className="bg-white/10 rounded-lg p-3 text-xs space-y-2">
           <p className="font-medium">Playlist</p>
           <div className="space-y-1 text-white/70 max-h-20 overflow-y-auto">
-            <p className="hover:text-white cursor-pointer transition">
-              ▶ Lo-fi Hip Hop - Chill Study
-            </p>
-            <p className="hover:text-white cursor-pointer transition">
-              Jazz Classics - Focus Mode
-            </p>
-            <p className="hover:text-white cursor-pointer transition">
-              Ambient Sounds - Meditation
-            </p>
-            <p className="hover:text-white cursor-pointer transition">
-              Piano - Deep Work
-            </p>
+            {playlist.map((track, idx) => (
+              <button
+                key={idx}
+                onClick={() => {
+                  setCurrentTrack(idx);
+                  setCurrentTime(0);
+                  setDuration(track.duration);
+                  setIsPlaying(true);
+                }}
+                className={`w-full text-left hover:text-white transition ${
+                  idx === currentTrack ? "text-white font-semibold bg-white/10 px-2 py-1 rounded" : ""
+                }`}
+              >
+                {idx === currentTrack ? "▶ " : "  "} {track.name}
+              </button>
+            ))}
           </div>
         </div>
       </div>
